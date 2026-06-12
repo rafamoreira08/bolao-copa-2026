@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bolão Copa 2026 — Família (LIVE)</title>
+<title>Bolão Copa 2026 — Ranking ao Vivo</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -63,6 +63,24 @@
     letter-spacing: 1px;
     text-transform: uppercase;
   }
+
+  /* NAV BUTTON */
+  .nav-wrap { text-align: center; margin-top: 14px; position: relative; z-index: 1; }
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 24px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-btn:hover { background: rgba(0,0,0,0.5); border-color: var(--amarelo); }
 
   /* CONTAINER */
   .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
@@ -333,7 +351,10 @@
 <header>
   <span class="trophy">🏆</span>
   <h1>Bolão Copa do Mundo 2026</h1>
-  <p>Família • EUA, México & Canadá • 11 Jun – 19 Jul • ⚡ Placar automático</p>
+  <p>⚡ Ranking ao vivo • Pontos parciais durante os jogos</p>
+  <div class="nav-wrap">
+    <a class="nav-btn" href="./">← Voltar à página principal</a>
+  </div>
 </header>
 
 <div class="container">
@@ -367,7 +388,7 @@
 
   <!-- RANKING -->
   <section>
-    <div class="section-title">🏅 Ranking Geral</div>
+    <div class="section-title">🏅 Ranking ao Vivo</div>
     <div class="ranking-list" id="ranking"></div>
     <div class="prov-note" id="prov-note" style="display:none">⚡ inclui pontos provisórios de jogos em andamento</div>
   </section>
@@ -389,245 +410,11 @@
   Bolão Família • Copa do Mundo 2026 · Placares via ESPN, atualização automática a cada 60s · <span id="last-update">—</span>
 </footer>
 
+<script src="dados.js"></script>
 <script>
-// ============================================================
-// DADOS DO BOLÃO — para atualizar: adicionar jogos e palpites
-// Palpites: [golsCasa, golsFora] na ordem mostrada (casa × fora)
-// ============================================================
-const PARTICIPANTES = ["Rafa", "Xyko", "Teu", "Dani", "Soninha", "Lu"];
-
-const JOGOS = [
-  {
-    dia: "Quinta-feira, 11 de junho", hora: "16h00", grupo: "A",
-    casa: "🇲🇽 México", fora: "África do Sul 🇿🇦",
-    abbrCasa: "MEX", abbrFora: "RSA",
-    local: "📍 Cidade do México",
-    manual: [2, 0], // fallback se a API não retornar
-    palpites: { Rafa: [2,0], Xyko: [2,1], Teu: [3,0], Dani: [2,1], Soninha: [1,2], Lu: [1,0] }
-  },
-  {
-    dia: "Quinta-feira, 11 de junho", hora: "23h00", grupo: "A",
-    casa: "🇰🇷 Coreia do Sul", fora: "Rep. Tcheca 🇨🇿",
-    abbrCasa: "KOR", abbrFora: "CZE",
-    local: "📍 Guadalajara",
-    palpites: { Rafa: [1,1], Xyko: [1,0], Teu: [0,0], Dani: [1,0], Soninha: [1,2], Lu: [1,1] }
-  },
-  {
-    dia: "Sexta-feira, 12 de junho", hora: "16h00", grupo: "B",
-    casa: "🇨🇦 Canadá", fora: "Bósnia 🇧🇦",
-    abbrCasa: "CAN", abbrFora: "BIH",
-    local: "📍 Toronto",
-    palpites: null
-  },
-  {
-    dia: "Sexta-feira, 12 de junho", hora: "22h00", grupo: "D",
-    casa: "🇺🇸 EUA", fora: "Paraguai 🇵🇾",
-    abbrCasa: "USA", abbrFora: "PAR",
-    local: "📍 Los Angeles",
-    palpites: null
-  },
-  {
-    dia: "Sábado, 13 de junho", hora: "16h00", grupo: "B",
-    casa: "🇶🇦 Catar", fora: "Suíça 🇨🇭",
-    abbrCasa: "QAT", abbrFora: "SUI",
-    local: "📍 San Francisco",
-    palpites: null
-  },
-  {
-    dia: "Sábado, 13 de junho", hora: "19h00", grupo: "C",
-    casa: "🇧🇷 Brasil", fora: "Marrocos 🇲🇦",
-    abbrCasa: "BRA", abbrFora: "MAR",
-    local: "📍 Nova York / NJ",
-    brasil: true,
-    palpites: null
-  },
-  {
-    dia: "Sábado, 13 de junho", hora: "22h00", grupo: "C",
-    casa: "🇭🇹 Haiti", fora: "Escócia 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-    abbrCasa: "HAI", abbrFora: "SCO",
-    local: "📍 Boston",
-    palpites: null
-  }
-];
-
-const API_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260611-20260719&limit=300";
-
-// ============================================================
-// PONTUAÇÃO
-// ============================================================
-function calcPontos(palpite, resultado) {
-  if (!palpite || !resultado) return null;
-  const [ph, pa] = palpite, [rh, ra] = resultado;
-  if (ph === rh && pa === ra) return 10;
-  const pd = ph - pa, rd = rh - ra;
-  if (Math.sign(pd) === Math.sign(rd) && pd === rd) return 6;
-  if (Math.sign(pd) === Math.sign(rd)) return 3;
-  return 0;
-}
-
-// ============================================================
-// API ESPN
-// ============================================================
-async function buscarPlacares() {
-  const resp = await fetch(API_URL);
-  if (!resp.ok) throw new Error("HTTP " + resp.status);
-  const data = await resp.json();
-  const eventos = data.events || [];
-
-  for (const jogo of JOGOS) {
-    jogo.estado = "pre"; jogo.placar = null; jogo.relogio = "";
-    const ev = eventos.find(e => {
-      const comp = e.competitions && e.competitions[0];
-      if (!comp || !comp.competitors) return false;
-      const abbrs = comp.competitors.map(c => c.team.abbreviation);
-      return abbrs.includes(jogo.abbrCasa) && abbrs.includes(jogo.abbrFora);
-    });
-    if (ev) {
-      const comp = ev.competitions[0];
-      const st = comp.status || ev.status;
-      jogo.estado = st.type.state; // pre | in | post
-      jogo.relogio = st.displayClock || "";
-      const cCasa = comp.competitors.find(c => c.team.abbreviation === jogo.abbrCasa);
-      const cFora = comp.competitors.find(c => c.team.abbreviation === jogo.abbrFora);
-      if (jogo.estado !== "pre" && cCasa && cFora) {
-        jogo.placar = [parseInt(cCasa.score, 10) || 0, parseInt(cFora.score, 10) || 0];
-      }
-    }
-    // fallback manual (ex: jogo já encerrado que a API não retornou)
-    if (jogo.estado === "pre" && jogo.manual) {
-      jogo.estado = "post";
-      jogo.placar = jogo.manual;
-    }
-  }
-}
-
-// ============================================================
-// RENDER
-// ============================================================
-function render() {
-  // ----- ranking -----
-  const totais = {}, temProvisorio = { v: false };
-  PARTICIPANTES.forEach(p => totais[p] = 0);
-  for (const jogo of JOGOS) {
-    if (!jogo.palpites || !jogo.placar) continue;
-    if (jogo.estado === "post" || jogo.estado === "in") {
-      if (jogo.estado === "in") temProvisorio.v = true;
-      for (const p of PARTICIPANTES) {
-        const pts = calcPontos(jogo.palpites[p], jogo.placar);
-        if (pts !== null) totais[p] += pts;
-      }
-    }
-  }
-  const ordenado = [...PARTICIPANTES].sort((a, b) => totais[b] - totais[a]);
-  let html = "";
-  ordenado.forEach((p, i) => {
-    let pos = i + 1;
-    if (i > 0 && totais[p] === totais[ordenado[i - 1]]) {
-      pos = parseInt(html.match(/data-pos="(\d+)"/g).pop().match(/\d+/)[0], 10);
-    }
-    const cls = pos <= 3 ? " pos-" + pos : "";
-    const nome = (pos === 1 && totais[p] > 0 ? "🎯 " : "") + p;
-    html += `<div class="ranking-item${cls}" data-pos="${pos}">
-      <div class="pos-badge">${pos}</div>
-      <div class="nome">${nome}</div>
-      <div style="text-align:right">
-        <div class="total-pts">${totais[p]}</div>
-        <div class="pts-label">pontos</div>
-      </div>
-    </div>`;
-  });
-  document.getElementById("ranking").innerHTML = html;
-  document.getElementById("prov-note").style.display = temProvisorio.v ? "block" : "none";
-
-  // ----- jogos -----
-  let jhtml = "", diaAtual = "";
-  for (const jogo of JOGOS) {
-    if (jogo.dia !== diaAtual) {
-      if (diaAtual !== "") jhtml += "</div>";
-      jhtml += `<div class="dia-bloco"><div class="dia-header">${jogo.dia}</div>`;
-      diaAtual = jogo.dia;
-    }
-
-    let cardCls = "", tag = "", placarHtml = "";
-    if (jogo.estado === "in") {
-      cardCls = " aovivo";
-      tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO ${jogo.relogio}</span>`;
-      placarHtml = `<span class="resultado-real vivo">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
-    } else if (jogo.estado === "post") {
-      cardCls = " encerrado";
-      tag = `<span class="status-tag tag-encerrado">Encerrado</span>`;
-      placarHtml = `<span class="resultado-real">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
-    } else {
-      tag = jogo.brasil
-        ? `<span class="status-tag tag-brasil">🇧🇷 Brasil</span>`
-        : `<span class="status-tag tag-futuro">Em breve</span>`;
-      placarHtml = `<span class="resultado-real pendente">Aguardando</span>`;
-    }
-    if (jogo.brasil && jogo.estado !== "in") cardCls = " brasil";
-
-    let linhas = "";
-    for (const p of PARTICIPANTES) {
-      const palpite = jogo.palpites ? jogo.palpites[p] : null;
-      const palpiteHtml = palpite
-        ? `<span class="palpite-val">${palpite[0]} × ${palpite[1]}</span>`
-        : `<span class="palpite-val aguardando">⏳ aguardando</span>`;
-      let ptsHtml = `<span class="badge-pts badge-pending">—</span>`;
-      if (palpite && jogo.placar && (jogo.estado === "post" || jogo.estado === "in")) {
-        const pts = calcPontos(palpite, jogo.placar);
-        const prov = jogo.estado === "in" ? " badge-prov" : "";
-        ptsHtml = `<span class="badge-pts badge-${pts}${prov}">${pts}</span>`;
-      }
-      linhas += `<tr><td>${p}</td><td>${palpiteHtml}</td><td>${ptsHtml}</td></tr>`;
-    }
-
-    jhtml += `<div class="jogo-card${cardCls}">
-      <div class="jogo-header">
-        <div class="jogo-info-linha"><span>🕓 ${jogo.hora}</span><span>·</span><span>Grupo ${jogo.grupo}</span></div>
-        <div style="display:flex;align-items:center;gap:8px">${tag}${placarHtml}</div>
-      </div>
-      <div class="jogo-times">
-        <div class="time-nome esquerda">${jogo.casa}</div>
-        <div class="vs">VS</div>
-        <div class="time-nome direita">${jogo.fora}</div>
-      </div>
-      <div class="jogo-local">${jogo.local}</div>
-      <table class="palpites-table">
-        <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
-        <tbody>${linhas}</tbody>
-      </table>
-    </div>`;
-  }
-  if (diaAtual !== "") jhtml += "</div>";
-  document.getElementById("jogos").innerHTML = jhtml;
-}
-
-// ============================================================
-// LOOP
-// ============================================================
-async function atualizar() {
-  const statusEl = document.getElementById("api-status");
-  try {
-    await buscarPlacares();
-    render();
-    statusEl.textContent = "";
-    statusEl.className = "api-status";
-    const agora = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-    document.getElementById("last-update").textContent = "Atualizado às " + agora;
-  } catch (e) {
-    // mantém o que estiver na tela; usa fallbacks manuais
-    for (const jogo of JOGOS) {
-      if (!jogo.placar && jogo.manual) { jogo.estado = "post"; jogo.placar = jogo.manual; }
-      if (jogo.estado === undefined) jogo.estado = "pre";
-    }
-    render();
-    statusEl.textContent = "⚠️ Não foi possível buscar os placares ao vivo agora (" + e.message + "). Mostrando últimos dados conhecidos.";
-    statusEl.className = "api-status erro";
-  }
-}
-
-atualizar();
-setInterval(atualizar, 60000);
+const MODO_LIVE = true;
 </script>
+<script src="bolao.js"></script>
 
 </body>
 </html>
