@@ -350,8 +350,8 @@
   .live-dot {
     width: 7px; height: 7px; border-radius: 50%;
     background: var(--vivo);
-    animation: pulse 1.2s infinite;
   }
+  body.tem-jogo-vivo .live-dot { animation: pulse 1.2s infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
 
   /* API STATUS */

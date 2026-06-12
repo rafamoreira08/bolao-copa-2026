@@ -125,7 +125,11 @@
 // ----- monta o formulário -----
 function montar() {
   let html = "";
-  JOGOS.forEach((j, idx) => {
+  // jogos sem resultado final primeiro (em ordem cronológica);
+  // jogos já encerrados (com resultado) ficam por último, do mais recente ao mais antigo
+  const pendentes = [], passados = [];
+  JOGOS.forEach((j, idx) => (j.manual ? passados.unshift([j, idx]) : pendentes.push([j, idx])));
+  [...pendentes, ...passados].forEach(([j, idx]) => {
     const aberto = (j.palpites === null || Object.keys(j.palpites || {}).length < PARTICIPANTES.length) ? " aberto" : "";
     const m = j.manual || ["", ""];
     let linhas = `<div class="linha-palpite" style="border-bottom:2px solid var(--borda)">

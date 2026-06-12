@@ -183,7 +183,8 @@ function render() {
     if (i > 0 && totais[p] === totais[ordenado[i - 1]]) pos = posAnterior;
     posAnterior = pos;
     const cls = pos <= 3 ? " pos-" + pos : "";
-    const nome = (pos === 1 && totais[p] > 0 ? "🎯 " : "") + p;
+    const medalhas = { 1: "🥇 ", 2: "🥈 ", 3: "🥉 " };
+    const nome = (totais[p] > 0 && medalhas[pos] ? medalhas[pos] : "") + p;
     html += `<div class="ranking-item${cls}">
       <div class="pos-badge">${pos}</div>
       <div class="nome">${nome}</div>
@@ -196,6 +197,9 @@ function render() {
   document.getElementById("ranking").innerHTML = html;
   const provEl = document.getElementById("prov-note");
   if (provEl) provEl.style.display = (MODO_LIVE && temProvisorio) ? "block" : "none";
+
+  // bolinha vermelha só pisca quando há jogo rolando (tipo REC)
+  document.body.classList.toggle("tem-jogo-vivo", JOGOS.some(j => j.estado === "in"));
 
   // fila: ao vivo primeiro, depois futuros (do mais próximo ao mais distante)
   const aoVivo = JOGOS.filter(j => j.estado === "in");
