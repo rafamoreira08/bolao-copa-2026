@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão Copa 2026 — Família (LIVE)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #00a651;
+    --verde-escuro: #006633;
+    --amarelo: #f4c400;
+    --azul: #003580;
+    --fundo: #0a0f1e;
+    --fundo2: #111827;
+    --card: #1a2236;
+    --borda: #2a3550;
+    --texto: #e8edf5;
+    --texto2: #8fa3c0;
+    --ouro: #f4c400;
+    --prata: #b0bec5;
+    --bronze: #cd7f32;
+    --vivo: #ff4d4d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--azul) 100%);
+    padding: 32px 20px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '⚽';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.04;
+    top: -40px;
+    right: -20px;
+  }
+  header .trophy { font-size: 48px; display: block; margin-bottom: 8px; }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 6vw, 52px);
+    letter-spacing: 3px;
+    color: var(--amarelo);
+    line-height: 1;
+  }
+  header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* CONTAINER */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* SEÇÃO */
+  section { margin-bottom: 32px; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--amarelo);
+    border-left: 4px solid var(--verde);
+    padding-left: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* REGRAS */
+  .regras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .regra-card {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .regra-card .pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+  }
+  .regra-card .pts.ouro { color: var(--ouro); }
+  .regra-card .pts.prata { color: var(--prata); }
+  .regra-card .pts.bronze { color: var(--bronze); }
+  .regra-card .pts.zero { color: var(--texto2); }
+  .regra-card .label {
+    font-size: 12px;
+    color: var(--texto2);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  .regra-card .emoji { font-size: 22px; margin-bottom: 6px; }
+
+  /* RANKING */
+  .ranking-list { display: flex; flex-direction: column; gap: 8px; }
+  .ranking-item {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.2s;
+  }
+  .ranking-item:hover { border-color: var(--verde); }
+  .ranking-item.pos-1 { border-color: var(--ouro); background: linear-gradient(90deg, #1a2236, #2a2010); }
+  .ranking-item.pos-2 { border-color: var(--prata); }
+  .ranking-item.pos-3 { border-color: var(--bronze); }
+  .pos-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+    color: var(--texto2);
+  }
+  .pos-1 .pos-badge { color: var(--ouro); }
+  .pos-2 .pos-badge { color: var(--prata); }
+  .pos-3 .pos-badge { color: var(--bronze); }
+  .nome { font-weight: 600; font-size: 16px; flex: 1; }
+  .total-pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--verde);
+  }
+  .pts-label { font-size: 11px; color: var(--texto2); }
+  .prov-note { font-size: 11px; color: var(--texto2); margin-top: 8px; text-align: right; }
+
+  /* JOGOS */
+  .dia-bloco { margin-bottom: 28px; }
+  .dia-header {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--texto2);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .dia-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--borda);
+  }
+
+  .jogo-card {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .jogo-card.encerrado { border-color: var(--verde-escuro); }
+  .jogo-card.brasil { border-color: var(--amarelo); }
+  .jogo-card.aovivo { border-color: var(--vivo); }
+
+  .jogo-header {
+    background: rgba(255,255,255,0.03);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--borda);
+    gap: 8px;
+  }
+  .jogo-info-linha {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--texto2);
+  }
+  .jogo-times {
+    padding: 12px 16px 4px;
+    display: grid;
+    grid-template-columns: 1fr 48px 1fr;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .jogo-local {
+    font-size: 11px;
+    color: var(--texto2);
+    text-align: center;
+    padding: 2px 16px 12px;
+  }
+  .time-nome {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .time-nome.esquerda { text-align: left; }
+  .time-nome.direita { text-align: right; }
+  .vs {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--texto2);
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .resultado-real {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--amarelo);
+    letter-spacing: 2px;
+  }
+  .resultado-real.pendente { color: var(--texto2); font-size: 12px; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+  .resultado-real.vivo { color: var(--vivo); }
+
+  /* PALPITES TABLE */
+  .palpites-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .palpites-table th {
+    background: rgba(255,255,255,0.04);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto2);
+    border-bottom: 1px solid var(--borda);
+  }
+  .palpites-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(42,53,80,0.5);
+    vertical-align: middle;
+  }
+  .palpites-table tr:last-child td { border-bottom: none; }
+  .palpites-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .palpite-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--texto);
+  }
+  .palpite-val.aguardando { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--texto2); }
+
+  .badge-pts {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    min-width: 48px;
+    text-align: center;
+  }
+  .badge-10 { background: #00a65130; color: #00e676; border: 1px solid var(--verde); }
+  .badge-6  { background: #3b82f630; color: #93c5fd; border: 1px solid #3b82f6; }
+  .badge-3  { background: #f4c40030; color: var(--amarelo); border: 1px solid var(--amarelo); }
+  .badge-0  { background: rgba(255,255,255,0.05); color: var(--texto2); border: 1px solid var(--borda); }
+  .badge-pending { background: transparent; color: var(--texto2); font-size: 12px; border: none; }
+  .badge-prov { opacity: 0.65; border-style: dashed; }
+
+  /* STATUS TAG */
+  .status-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tag-encerrado { background: #00a65115; color: var(--verde); border: 1px solid var(--verde-escuro); }
+  .tag-hoje { background: #f4c40020; color: var(--amarelo); border: 1px solid var(--amarelo); }
+  .tag-futuro { background: rgba(255,255,255,0.05); color: var(--texto2); border: 1px solid var(--borda); }
+  .tag-brasil { background: #f4c40030; color: var(--amarelo); border: 1px solid var(--amarelo); }
+  .tag-vivo {
+    background: #ff4d4d20; color: var(--vivo); border: 1px solid var(--vivo);
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--vivo);
+    animation: pulse 1.2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  /* API STATUS */
+  .api-status {
+    text-align: center;
+    font-size: 11px;
+    color: var(--texto2);
+    padding: 8px;
+  }
+  .api-status.erro { color: #ff8a80; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--texto2);
+    border-top: 1px solid var(--borda);
+  }
+
+  @media (max-width: 600px) {
+    .jogo-times { font-size: 13px; gap: 8px; }
+    .regras-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="trophy">🏆</span>
+  <h1>Bolão Copa do Mundo 2026</h1>
+  <p>Família • EUA, México & Canadá • 11 Jun – 19 Jul • ⚡ Placar automático</p>
+</header>
+
+<div class="container">
+
+  <!-- REGRAS -->
+  <section>
+    <div class="section-title">📋 Regras de Pontuação</div>
+    <div class="regras-grid">
+      <div class="regra-card">
+        <div class="emoji">🎯</div>
+        <div class="pts ouro">10</div>
+        <div class="label">Placar exato</div>
+      </div>
+      <div class="regra-card">
+        <div class="emoji">✅</div>
+        <div class="pts prata">6</div>
+        <div class="label">Vencedor/empate certo + diferença de gols certa</div>
+      </div>
+      <div class="regra-card">
+        <div class="emoji">👍</div>
+        <div class="pts bronze">3</div>
+        <div class="label">Vencedor certo, mas diferença de gols errada</div>
+      </div>
+      <div class="regra-card">
+        <div class="emoji">❌</div>
+        <div class="pts zero">0</div>
+        <div class="label">Errou tudo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section>
+    <div class="section-title">🏅 Ranking Geral</div>
+    <div class="ranking-list" id="ranking"></div>
+    <div class="prov-note" id="prov-note" style="display:none">⚡ inclui pontos provisórios de jogos em andamento</div>
+  </section>
+
+  <!-- JOGOS -->
+  <section>
+    <div class="section-title">⚽ Jogos — Fase de Grupos</div>
+    <div id="jogos"></div>
+    <div class="api-status" id="api-status">Carregando placares…</div>
+
+    <div style="background:var(--card);border:1px dashed var(--borda);border-radius:12px;padding:20px;text-align:center;color:var(--texto2);font-size:13px;">
+      ⚽ Os demais jogos da fase de grupos (14/06 a 27/06) serão adicionados conforme os palpites forem enviados.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Bolão Família • Copa do Mundo 2026 · Placares via ESPN, atualização automática a cada 60s · <span id="last-update">—</span>
+</footer>
+
+<script>
+// ============================================================
+// DADOS DO BOLÃO — para atualizar: adicionar jogos e palpites
+// Palpites: [golsCasa, golsFora] na ordem mostrada (casa × fora)
+// ============================================================
+const PARTICIPANTES = ["Rafa", "Xyko", "Teu", "Dani", "Soninha", "Lu"];
+
+const JOGOS = [
+  {
+    dia: "Quinta-feira, 11 de junho", hora: "16h00", grupo: "A",
+    casa: "🇲🇽 México", fora: "África do Sul 🇿🇦",
+    abbrCasa: "MEX", abbrFora: "RSA",
+    local: "📍 Cidade do México",
+    manual: [2, 0], // fallback se a API não retornar
+    palpites: { Rafa: [2,0], Xyko: [2,1], Teu: [3,0], Dani: [2,1], Soninha: [1,2], Lu: [1,0] }
+  },
+  {
+    dia: "Quinta-feira, 11 de junho", hora: "23h00", grupo: "A",
+    casa: "🇰🇷 Coreia do Sul", fora: "Rep. Tcheca 🇨🇿",
+    abbrCasa: "KOR", abbrFora: "CZE",
+    local: "📍 Guadalajara",
+    palpites: { Rafa: [1,1], Xyko: [1,0], Teu: [0,0], Dani: [1,0], Soninha: [1,2], Lu: [1,1] }
+  },
+  {
+    dia: "Sexta-feira, 12 de junho", hora: "16h00", grupo: "B",
+    casa: "🇨🇦 Canadá", fora: "Bósnia 🇧🇦",
+    abbrCasa: "CAN", abbrFora: "BIH",
+    local: "📍 Toronto",
+    palpites: null
+  },
+  {
+    dia: "Sexta-feira, 12 de junho", hora: "22h00", grupo: "D",
+    casa: "🇺🇸 EUA", fora: "Paraguai 🇵🇾",
+    abbrCasa: "USA", abbrFora: "PAR",
+    local: "📍 Los Angeles",
+    palpites: null
+  },
+  {
+    dia: "Sábado, 13 de junho", hora: "16h00", grupo: "B",
+    casa: "🇶🇦 Catar", fora: "Suíça 🇨🇭",
+    abbrCasa: "QAT", abbrFora: "SUI",
+    local: "📍 San Francisco",
+    palpites: null
+  },
+  {
+    dia: "Sábado, 13 de junho", hora: "19h00", grupo: "C",
+    casa: "🇧🇷 Brasil", fora: "Marrocos 🇲🇦",
+    abbrCasa: "BRA", abbrFora: "MAR",
+    local: "📍 Nova York / NJ",
+    brasil: true,
+    palpites: null
+  },
+  {
+    dia: "Sábado, 13 de junho", hora: "22h00", grupo: "C",
+    casa: "🇭🇹 Haiti", fora: "Escócia 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    abbrCasa: "HAI", abbrFora: "SCO",
+    local: "📍 Boston",
+    palpites: null
+  }
+];
+
+const API_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260611-20260719&limit=300";
+
+// ============================================================
+// PONTUAÇÃO
+// ============================================================
+function calcPontos(palpite, resultado) {
+  if (!palpite || !resultado) return null;
+  const [ph, pa] = palpite, [rh, ra] = resultado;
+  if (ph === rh && pa === ra) return 10;
+  const pd = ph - pa, rd = rh - ra;
+  if (Math.sign(pd) === Math.sign(rd) && pd === rd) return 6;
+  if (Math.sign(pd) === Math.sign(rd)) return 3;
+  return 0;
+}
+
+// ============================================================
+// API ESPN
+// ============================================================
+async function buscarPlacares() {
+  const resp = await fetch(API_URL);
+  if (!resp.ok) throw new Error("HTTP " + resp.status);
+  const data = await resp.json();
+  const eventos = data.events || [];
+
+  for (const jogo of JOGOS) {
+    jogo.estado = "pre"; jogo.placar = null; jogo.relogio = "";
+    const ev = eventos.find(e => {
+      const comp = e.competitions && e.competitions[0];
+      if (!comp || !comp.competitors) return false;
+      const abbrs = comp.competitors.map(c => c.team.abbreviation);
+      return abbrs.includes(jogo.abbrCasa) && abbrs.includes(jogo.abbrFora);
+    });
+    if (ev) {
+      const comp = ev.competitions[0];
+      const st = comp.status || ev.status;
+      jogo.estado = st.type.state; // pre | in | post
+      jogo.relogio = st.displayClock || "";
+      const cCasa = comp.competitors.find(c => c.team.abbreviation === jogo.abbrCasa);
+      const cFora = comp.competitors.find(c => c.team.abbreviation === jogo.abbrFora);
+      if (jogo.estado !== "pre" && cCasa && cFora) {
+        jogo.placar = [parseInt(cCasa.score, 10) || 0, parseInt(cFora.score, 10) || 0];
+      }
+    }
+    // fallback manual (ex: jogo já encerrado que a API não retornou)
+    if (jogo.estado === "pre" && jogo.manual) {
+      jogo.estado = "post";
+      jogo.placar = jogo.manual;
+    }
+  }
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  // ----- ranking -----
+  const totais = {}, temProvisorio = { v: false };
+  PARTICIPANTES.forEach(p => totais[p] = 0);
+  for (const jogo of JOGOS) {
+    if (!jogo.palpites || !jogo.placar) continue;
+    if (jogo.estado === "post" || jogo.estado === "in") {
+      if (jogo.estado === "in") temProvisorio.v = true;
+      for (const p of PARTICIPANTES) {
+        const pts = calcPontos(jogo.palpites[p], jogo.placar);
+        if (pts !== null) totais[p] += pts;
+      }
+    }
+  }
+  const ordenado = [...PARTICIPANTES].sort((a, b) => totais[b] - totais[a]);
+  let html = "";
+  ordenado.forEach((p, i) => {
+    let pos = i + 1;
+    if (i > 0 && totais[p] === totais[ordenado[i - 1]]) {
+      pos = parseInt(html.match(/data-pos="(\d+)"/g).pop().match(/\d+/)[0], 10);
+    }
+    const cls = pos <= 3 ? " pos-" + pos : "";
+    const nome = (pos === 1 && totais[p] > 0 ? "🎯 " : "") + p;
+    html += `<div class="ranking-item${cls}" data-pos="${pos}">
+      <div class="pos-badge">${pos}</div>
+      <div class="nome">${nome}</div>
+      <div style="text-align:right">
+        <div class="total-pts">${totais[p]}</div>
+        <div class="pts-label">pontos</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById("ranking").innerHTML = html;
+  document.getElementById("prov-note").style.display = temProvisorio.v ? "block" : "none";
+
+  // ----- jogos -----
+  let jhtml = "", diaAtual = "";
+  for (const jogo of JOGOS) {
+    if (jogo.dia !== diaAtual) {
+      if (diaAtual !== "") jhtml += "</div>";
+      jhtml += `<div class="dia-bloco"><div class="dia-header">${jogo.dia}</div>`;
+      diaAtual = jogo.dia;
+    }
+
+    let cardCls = "", tag = "", placarHtml = "";
+    if (jogo.estado === "in") {
+      cardCls = " aovivo";
+      tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO ${jogo.relogio}</span>`;
+      placarHtml = `<span class="resultado-real vivo">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
+    } else if (jogo.estado === "post") {
+      cardCls = " encerrado";
+      tag = `<span class="status-tag tag-encerrado">Encerrado</span>`;
+      placarHtml = `<span class="resultado-real">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
+    } else {
+      tag = jogo.brasil
+        ? `<span class="status-tag tag-brasil">🇧🇷 Brasil</span>`
+        : `<span class="status-tag tag-futuro">Em breve</span>`;
+      placarHtml = `<span class="resultado-real pendente">Aguardando</span>`;
+    }
+    if (jogo.brasil && jogo.estado !== "in") cardCls = " brasil";
+
+    let linhas = "";
+    for (const p of PARTICIPANTES) {
+      const palpite = jogo.palpites ? jogo.palpites[p] : null;
+      const palpiteHtml = palpite
+        ? `<span class="palpite-val">${palpite[0]} × ${palpite[1]}</span>`
+        : `<span class="palpite-val aguardando">⏳ aguardando</span>`;
+      let ptsHtml = `<span class="badge-pts badge-pending">—</span>`;
+      if (palpite && jogo.placar && (jogo.estado === "post" || jogo.estado === "in")) {
+        const pts = calcPontos(palpite, jogo.placar);
+        const prov = jogo.estado === "in" ? " badge-prov" : "";
+        ptsHtml = `<span class="badge-pts badge-${pts}${prov}">${pts}</span>`;
+      }
+      linhas += `<tr><td>${p}</td><td>${palpiteHtml}</td><td>${ptsHtml}</td></tr>`;
+    }
+
+    jhtml += `<div class="jogo-card${cardCls}">
+      <div class="jogo-header">
+        <div class="jogo-info-linha"><span>🕓 ${jogo.hora}</span><span>·</span><span>Grupo ${jogo.grupo}</span></div>
+        <div style="display:flex;align-items:center;gap:8px">${tag}${placarHtml}</div>
+      </div>
+      <div class="jogo-times">
+        <div class="time-nome esquerda">${jogo.casa}</div>
+        <div class="vs">VS</div>
+        <div class="time-nome direita">${jogo.fora}</div>
+      </div>
+      <div class="jogo-local">${jogo.local}</div>
+      <table class="palpites-table">
+        <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>
+    </div>`;
+  }
+  if (diaAtual !== "") jhtml += "</div>";
+  document.getElementById("jogos").innerHTML = jhtml;
+}
+
+// ============================================================
+// LOOP
+// ============================================================
+async function atualizar() {
+  const statusEl = document.getElementById("api-status");
+  try {
+    await buscarPlacares();
+    render();
+    statusEl.textContent = "";
+    statusEl.className = "api-status";
+    const agora = new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    document.getElementById("last-update").textContent = "Atualizado às " + agora;
+  } catch (e) {
+    // mantém o que estiver na tela; usa fallbacks manuais
+    for (const jogo of JOGOS) {
+      if (!jogo.placar && jogo.manual) { jogo.estado = "post"; jogo.placar = jogo.manual; }
+      if (jogo.estado === undefined) jogo.estado = "pre";
+    }
+    render();
+    statusEl.textContent = "⚠️ Não foi possível buscar os placares ao vivo agora (" + e.message + "). Mostrando últimos dados conhecidos.";
+    statusEl.className = "api-status erro";
+  }
+}
+
+atualizar();
+setInterval(atualizar, 60000);
+</script>
+
+</body>
+</html>
