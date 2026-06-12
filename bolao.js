@@ -52,6 +52,20 @@ async function buscarPlacares() {
       jogo.placar = jogo.manual;
     }
   }
+  // a API da ESPN às vezes "esquece" resultados de dias anteriores:
+  // guarda finais já vistos no navegador e restaura quando necessário
+  let cache = {};
+  try { cache = JSON.parse(localStorage.getItem("bolao_finais") || "{}"); } catch (e) {}
+  for (const jogo of JOGOS) {
+    const k = chaveJogo(jogo);
+    if (jogo.estado === "post" && jogo.placar) {
+      cache[k] = jogo.placar;
+    } else if (jogo.estado === "pre" && cache[k]) {
+      jogo.estado = "post";
+      jogo.placar = cache[k];
+    }
+  }
+  try { localStorage.setItem("bolao_finais", JSON.stringify(cache)); } catch (e) {}
 }
 
 // ----- card de jogo -----

@@ -94,7 +94,9 @@
   <div class="aviso">
     <strong>Como funciona:</strong> preencha os palpites abaixo (deixe em branco quem não enviou),
     clique em <strong>Gerar arquivo</strong>, copie o conteúdo e cole no GitHub substituindo o arquivo
-    <code>dados.js</code>. As duas páginas do bolão atualizam sozinhas em ~1 minuto.
+    <code>dados.js</code>. As duas páginas do bolão atualizam sozinhas em ~1 minuto.<br><br>
+    <strong>🏁 Resultado final:</strong> quando um jogo terminar, preencha também o resultado final dele —
+    isso "congela" a pontuação, pois a API da ESPN às vezes esquece placares de dias anteriores.
   </div>
 
   <div id="formulario"></div>
@@ -125,7 +127,13 @@ function montar() {
   let html = "";
   JOGOS.forEach((j, idx) => {
     const aberto = (j.palpites === null || Object.keys(j.palpites || {}).length < PARTICIPANTES.length) ? " aberto" : "";
-    let linhas = "";
+    const m = j.manual || ["", ""];
+    let linhas = `<div class="linha-palpite" style="border-bottom:2px solid var(--borda)">
+      <label style="color:var(--amarelo)">🏁 Resultado final</label>
+      <input type="number" min="0" max="20" id="j${idx}-manual-c" value="${m[0]}" placeholder="–">
+      <div class="x">×</div>
+      <input type="number" min="0" max="20" id="j${idx}-manual-f" value="${m[1]}" placeholder="–">
+    </div>`;
     for (const p of PARTICIPANTES) {
       const v = j.palpites && j.palpites[p] ? j.palpites[p] : ["", ""];
       linhas += `<div class="linha-palpite">
@@ -156,6 +164,10 @@ function lerFormulario() {
       if (c !== "" && f !== "") palpites[p] = [parseInt(c, 10), parseInt(f, 10)];
     }
     j.palpites = Object.keys(palpites).length ? palpites : null;
+    const mc = document.getElementById(`j${idx}-manual-c`).value;
+    const mf = document.getElementById(`j${idx}-manual-f`).value;
+    if (mc !== "" && mf !== "") j.manual = [parseInt(mc, 10), parseInt(mf, 10)];
+    else delete j.manual;
   });
 }
 
