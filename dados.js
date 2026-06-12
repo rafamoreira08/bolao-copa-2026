@@ -27,14 +27,14 @@ const JOGOS = [
     casa: "🇨🇦 Canadá", fora: "Bósnia 🇧🇦",
     abbrCasa: "CAN", abbrFora: "BIH",
     local: "📍 Toronto",
-    palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [1,2], Dani: [0,0], Soninha: [0,2] }
+    palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [1,2], Dani: [0,0], Soninha: [0,2], Lu: [0,0] }
   },
   {
     dia: "Sexta-feira, 12 de junho", hora: "22h00", grupo: "D",
     casa: "🇺🇸 EUA", fora: "Paraguai 🇵🇾",
     abbrCasa: "USA", abbrFora: "PAR",
     local: "📍 Los Angeles",
-    palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [2,1], Dani: [0,2], Soninha: [2,2] }
+    palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [2,1], Dani: [0,2], Soninha: [2,2], Lu: [0,1] }
   },
   {
     dia: "Sábado, 13 de junho", hora: "16h00", grupo: "B",
