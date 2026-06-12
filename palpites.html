@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão Copa 2026 — Cadastro de Palpites (admin)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #00a651;
+    --verde-escuro: #006633;
+    --amarelo: #f4c400;
+    --azul: #003580;
+    --fundo: #0a0f1e;
+    --card: #1a2236;
+    --borda: #2a3550;
+    --texto: #e8edf5;
+    --texto2: #8fa3c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--fundo); color: var(--texto); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--azul) 100%);
+    padding: 26px 20px 20px; text-align: center;
+  }
+  header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(24px, 5vw, 40px); letter-spacing: 3px; color: var(--amarelo); line-height: 1; }
+  header p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 6px; letter-spacing: 1px; text-transform: uppercase; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 24px 16px 60px; }
+  .aviso {
+    background: #f4c40015; border: 1px solid var(--amarelo); border-radius: 12px;
+    padding: 14px 16px; font-size: 13px; color: var(--texto); margin-bottom: 24px; line-height: 1.5;
+  }
+
+  .jogo-bloco {
+    background: var(--card); border: 1px solid var(--borda); border-radius: 14px;
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .jogo-titulo {
+    background: rgba(255,255,255,0.04); padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--borda); font-weight: 600; font-size: 14px;
+    cursor: pointer; user-select: none;
+  }
+  .jogo-titulo .meta { font-size: 11px; color: var(--texto2); font-weight: 400; }
+  .jogo-corpo { padding: 12px 16px; display: none; }
+  .jogo-bloco.aberto .jogo-corpo { display: block; }
+
+  .linha-palpite {
+    display: grid; grid-template-columns: 1fr 64px 24px 64px; align-items: center;
+    gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(42,53,80,0.5);
+  }
+  .linha-palpite:last-child { border-bottom: none; }
+  .linha-palpite label { font-size: 14px; font-weight: 500; }
+  .linha-palpite .x { text-align: center; color: var(--texto2); font-size: 12px; }
+  .linha-palpite input {
+    width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--borda);
+    background: var(--fundo); color: var(--texto); font-size: 16px; text-align: center;
+    font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;
+  }
+  .linha-palpite input:focus { outline: none; border-color: var(--amarelo); }
+  .linha-palpite input::placeholder { color: #3d4a66; }
+
+  .acoes { text-align: center; margin: 28px 0 16px; }
+  button {
+    background: var(--verde); border: none; color: #fff; font-weight: 700;
+    font-size: 15px; padding: 14px 28px; border-radius: 26px; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+  button:hover { filter: brightness(1.15); }
+  button.sec { background: var(--card); border: 1px solid var(--borda); font-weight: 600; font-size: 13px; padding: 10px 20px; }
+
+  #saida { display: none; margin-top: 20px; }
+  #saida textarea {
+    width: 100%; height: 220px; background: var(--fundo); color: var(--texto);
+    border: 1px solid var(--borda); border-radius: 12px; padding: 12px;
+    font-family: monospace; font-size: 12px; resize: vertical;
+  }
+  .passos { font-size: 13px; color: var(--texto2); line-height: 1.8; margin-top: 12px; }
+  .passos a { color: var(--amarelo); }
+  .copiado { color: var(--verde); font-size: 13px; margin-left: 10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔑 Cadastro de Palpites</h1>
+  <p>Página do administrador — não compartilhe este link</p>
+</header>
+
+<div class="container">
+
+  <div class="aviso">
+    <strong>Como funciona:</strong> preencha os palpites abaixo (deixe em branco quem não enviou),
+    clique em <strong>Gerar arquivo</strong>, copie o conteúdo e cole no GitHub substituindo o arquivo
+    <code>dados.js</code>. As duas páginas do bolão atualizam sozinhas em ~1 minuto.
+  </div>
+
+  <div id="formulario"></div>
+
+  <div class="acoes">
+    <button onclick="gerar()">⚙️ Gerar arquivo dados.js</button>
+  </div>
+
+  <div id="saida">
+    <textarea id="conteudo" readonly></textarea>
+    <div class="acoes" style="margin-top:12px">
+      <button class="sec" onclick="copiar()">📋 Copiar conteúdo</button><span id="ok-copia" class="copiado"></span>
+    </div>
+    <div class="passos">
+      <strong>Depois de copiar:</strong><br>
+      1. Abra o <a href="https://github.com/rafamoreira08/bolao-copa-2026/edit/main/dados.js" target="_blank">editor do dados.js no GitHub</a><br>
+      2. Selecione tudo (Cmd+A) e cole por cima (Cmd+V)<br>
+      3. Clique em <strong>Commit changes</strong> — pronto, no ar em ~1 minuto ⚽
+    </div>
+  </div>
+
+</div>
+
+<script src="dados.js"></script>
+<script>
+// ----- monta o formulário -----
+function montar() {
+  let html = "";
+  JOGOS.forEach((j, idx) => {
+    const aberto = (j.palpites === null || Object.keys(j.palpites || {}).length < PARTICIPANTES.length) ? " aberto" : "";
+    let linhas = "";
+    for (const p of PARTICIPANTES) {
+      const v = j.palpites && j.palpites[p] ? j.palpites[p] : ["", ""];
+      linhas += `<div class="linha-palpite">
+        <label>${p}</label>
+        <input type="number" min="0" max="20" id="j${idx}-${p}-c" value="${v[0]}" placeholder="–">
+        <div class="x">×</div>
+        <input type="number" min="0" max="20" id="j${idx}-${p}-f" value="${v[1]}" placeholder="–">
+      </div>`;
+    }
+    html += `<div class="jogo-bloco${aberto}">
+      <div class="jogo-titulo" onclick="this.parentElement.classList.toggle('aberto')">
+        <span>${j.casa} × ${j.fora}</span>
+        <span class="meta">${j.dia} · ${j.hora}</span>
+      </div>
+      <div class="jogo-corpo">${linhas}</div>
+    </div>`;
+  });
+  document.getElementById("formulario").innerHTML = html;
+}
+
+// ----- lê o formulário de volta para JOGOS -----
+function lerFormulario() {
+  JOGOS.forEach((j, idx) => {
+    const palpites = {};
+    for (const p of PARTICIPANTES) {
+      const c = document.getElementById(`j${idx}-${p}-c`).value;
+      const f = document.getElementById(`j${idx}-${p}-f`).value;
+      if (c !== "" && f !== "") palpites[p] = [parseInt(c, 10), parseInt(f, 10)];
+    }
+    j.palpites = Object.keys(palpites).length ? palpites : null;
+  });
+}
+
+// ----- serializa de volta para o formato do dados.js -----
+function serializarJogo(j) {
+  let s = "  {\n";
+  s += `    dia: ${JSON.stringify(j.dia)}, hora: ${JSON.stringify(j.hora)}, grupo: ${JSON.stringify(j.grupo)},\n`;
+  s += `    casa: ${JSON.stringify(j.casa)}, fora: ${JSON.stringify(j.fora)},\n`;
+  s += `    abbrCasa: ${JSON.stringify(j.abbrCasa)}, abbrFora: ${JSON.stringify(j.abbrFora)},\n`;
+  s += `    local: ${JSON.stringify(j.local)},\n`;
+  if (j.brasil) s += `    brasil: true,\n`;
+  if (j.manual) s += `    manual: [${j.manual[0]}, ${j.manual[1]}],\n`;
+  if (j.palpites) {
+    const entradas = Object.entries(j.palpites).map(([p, v]) => `${p}: [${v[0]},${v[1]}]`).join(", ");
+    s += `    palpites: { ${entradas} }\n`;
+  } else {
+    s += `    palpites: null\n`;
+  }
+  s += "  }";
+  return s;
+}
+
+function gerar() {
+  lerFormulario();
+  let out = "// ============================================================\n";
+  out += "// DADOS DO BOLÃO — gerado pela página de cadastro de palpites\n";
+  out += "// Palpites: [golsCasa, golsFora] na ordem mostrada (casa × fora)\n";
+  out += "// ============================================================\n";
+  out += `const PARTICIPANTES = ${JSON.stringify(PARTICIPANTES)};\n\n`;
+  out += "const JOGOS = [\n";
+  out += JOGOS.map(serializarJogo).join(",\n");
+  out += "\n];\n\n";
+  out += `const API_URL = ${JSON.stringify(API_URL)};\n`;
+  document.getElementById("conteudo").value = out;
+  document.getElementById("saida").style.display = "block";
+  document.getElementById("saida").scrollIntoView({ behavior: "smooth" });
+}
+
+function copiar() {
+  const ta = document.getElementById("conteudo");
+  ta.select();
+  navigator.clipboard.writeText(ta.value).then(() => {
+    document.getElementById("ok-copia").textContent = "✓ copiado!";
+    setTimeout(() => document.getElementById("ok-copia").textContent = "", 3000);
+  });
+}
+
+montar();
+</script>
+
+</body>
+</html>

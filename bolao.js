@@ -5,6 +5,10 @@
 //   MODO_LIVE = false → placares e pontos só no fim do jogo
 // ============================================================
 
+// jogos encerrados que o usuário expandiu (persiste entre re-renders)
+const EXPANDIDOS = new Set();
+function chaveJogo(j) { return j.abbrCasa + "x" + j.abbrFora; }
+
 // ----- pontuação -----
 function calcPontos(palpite, resultado) {
   if (!palpite || !resultado) return null;
@@ -50,6 +54,82 @@ async function buscarPlacares() {
   }
 }
 
+// ----- card de jogo -----
+function cardJogo(jogo) {
+  const passado = jogo.estado === "post";
+  const expandido = EXPANDIDOS.has(chaveJogo(jogo));
+  const mostraParcial = MODO_LIVE && jogo.estado === "in" && jogo.placar;
+
+  let cardCls = "", tag = "", placarHtml = "";
+  if (jogo.estado === "in") {
+    cardCls = " aovivo";
+    if (mostraParcial) {
+      tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO ${jogo.relogio}</span>`;
+      placarHtml = `<span class="resultado-real vivo">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
+    } else {
+      tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO</span>`;
+      placarHtml = `<a href="live.html" style="color:var(--texto2);font-size:12px;">acompanhar ⚡</a>`;
+    }
+  } else if (passado) {
+    cardCls = " encerrado colapsavel" + (expandido ? "" : " colapsado");
+    tag = `<span class="status-tag tag-encerrado">Encerrado</span>`;
+    placarHtml = `<span class="resultado-real">${jogo.placar[0]} × ${jogo.placar[1]}</span><span class="seta">${expandido ? "▾" : "▸"}</span>`;
+  } else {
+    tag = jogo.brasil
+      ? `<span class="status-tag tag-brasil">🇧🇷 Brasil</span>`
+      : `<span class="status-tag tag-futuro">Em breve</span>`;
+    placarHtml = `<span class="resultado-real pendente">Aguardando</span>`;
+  }
+  if (jogo.brasil && jogo.estado === "pre") cardCls = " brasil";
+
+  let linhas = "";
+  for (const p of PARTICIPANTES) {
+    const palpite = jogo.palpites ? jogo.palpites[p] : null;
+    const palpiteHtml = palpite
+      ? `<span class="palpite-val">${palpite[0]} × ${palpite[1]}</span>`
+      : `<span class="palpite-val aguardando">⏳ aguardando</span>`;
+    let ptsHtml = `<span class="badge-pts badge-pending">—</span>`;
+    const mostraPts = palpite && jogo.placar && (passado || mostraParcial);
+    if (mostraPts) {
+      const pts = calcPontos(palpite, jogo.placar);
+      const prov = jogo.estado === "in" ? " badge-prov" : "";
+      ptsHtml = `<span class="badge-pts badge-${pts}${prov}">${pts}</span>`;
+    }
+    linhas += `<tr><td>${p}</td><td>${palpiteHtml}</td><td>${ptsHtml}</td></tr>`;
+  }
+
+  return `<div class="jogo-card${cardCls}" data-jogo="${chaveJogo(jogo)}">
+    <div class="jogo-header">
+      <div class="jogo-info-linha"><span>📅 ${jogo.dia.split(", ")[1] || jogo.dia}</span><span>·</span><span>🕓 ${jogo.hora}</span><span>·</span><span>Grupo ${jogo.grupo}</span></div>
+      <div style="display:flex;align-items:center;gap:8px">${tag}${placarHtml}</div>
+    </div>
+    <div class="jogo-times">
+      <div class="time-nome esquerda">${jogo.casa}</div>
+      <div class="vs">VS</div>
+      <div class="time-nome direita">${jogo.fora}</div>
+    </div>
+    <div class="jogo-local">${jogo.local}</div>
+    <table class="palpites-table">
+      <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+      <tbody>${linhas}</tbody>
+    </table>
+  </div>`;
+}
+
+function blocoPorDia(jogos) {
+  let html = "", diaAtual = "";
+  for (const jogo of jogos) {
+    if (jogo.dia !== diaAtual) {
+      if (diaAtual !== "") html += "</div>";
+      html += `<div class="dia-bloco"><div class="dia-header">${jogo.dia}</div>`;
+      diaAtual = jogo.dia;
+    }
+    html += cardJogo(jogo);
+  }
+  if (diaAtual !== "") html += "</div>";
+  return html;
+}
+
 // ----- render -----
 function render() {
   // ranking
@@ -88,74 +168,33 @@ function render() {
   const provEl = document.getElementById("prov-note");
   if (provEl) provEl.style.display = (MODO_LIVE && temProvisorio) ? "block" : "none";
 
-  // jogos
-  let jhtml = "", diaAtual = "";
-  for (const jogo of JOGOS) {
-    if (jogo.dia !== diaAtual) {
-      if (diaAtual !== "") jhtml += "</div>";
-      jhtml += `<div class="dia-bloco"><div class="dia-header">${jogo.dia}</div>`;
-      diaAtual = jogo.dia;
-    }
+  // fila: ao vivo primeiro, depois futuros (do mais próximo ao mais distante)
+  const aoVivo = JOGOS.filter(j => j.estado === "in");
+  const futuros = JOGOS.filter(j => j.estado === "pre" || j.estado === undefined);
+  const passados = JOGOS.filter(j => j.estado === "post").slice().reverse(); // mais recente primeiro
 
-    let cardCls = "", tag = "", placarHtml = "";
-    const mostraParcial = MODO_LIVE && jogo.estado === "in" && jogo.placar;
+  document.getElementById("jogos").innerHTML =
+    (aoVivo.length || futuros.length)
+      ? blocoPorDia([...aoVivo, ...futuros])
+      : `<div class="api-status">Nenhum jogo na fila por enquanto.</div>`;
 
-    if (jogo.estado === "in") {
-      cardCls = " aovivo";
-      if (mostraParcial) {
-        tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO ${jogo.relogio}</span>`;
-        placarHtml = `<span class="resultado-real vivo">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
-      } else {
-        tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO</span>`;
-        placarHtml = `<a href="live.html" style="color:var(--texto2);font-size:12px;">acompanhar ⚡</a>`;
-      }
-    } else if (jogo.estado === "post") {
-      cardCls = " encerrado";
-      tag = `<span class="status-tag tag-encerrado">Encerrado</span>`;
-      placarHtml = `<span class="resultado-real">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
-    } else {
-      tag = jogo.brasil
-        ? `<span class="status-tag tag-brasil">🇧🇷 Brasil</span>`
-        : `<span class="status-tag tag-futuro">Em breve</span>`;
-      placarHtml = `<span class="resultado-real pendente">Aguardando</span>`;
-    }
-    if (jogo.brasil && jogo.estado === "pre") cardCls = " brasil";
-
-    let linhas = "";
-    for (const p of PARTICIPANTES) {
-      const palpite = jogo.palpites ? jogo.palpites[p] : null;
-      const palpiteHtml = palpite
-        ? `<span class="palpite-val">${palpite[0]} × ${palpite[1]}</span>`
-        : `<span class="palpite-val aguardando">⏳ aguardando</span>`;
-      let ptsHtml = `<span class="badge-pts badge-pending">—</span>`;
-      const mostraPts = palpite && jogo.placar && (jogo.estado === "post" || mostraParcial);
-      if (mostraPts) {
-        const pts = calcPontos(palpite, jogo.placar);
-        const prov = jogo.estado === "in" ? " badge-prov" : "";
-        ptsHtml = `<span class="badge-pts badge-${pts}${prov}">${pts}</span>`;
-      }
-      linhas += `<tr><td>${p}</td><td>${palpiteHtml}</td><td>${ptsHtml}</td></tr>`;
-    }
-
-    jhtml += `<div class="jogo-card${cardCls}">
-      <div class="jogo-header">
-        <div class="jogo-info-linha"><span>🕓 ${jogo.hora}</span><span>·</span><span>Grupo ${jogo.grupo}</span></div>
-        <div style="display:flex;align-items:center;gap:8px">${tag}${placarHtml}</div>
-      </div>
-      <div class="jogo-times">
-        <div class="time-nome esquerda">${jogo.casa}</div>
-        <div class="vs">VS</div>
-        <div class="time-nome direita">${jogo.fora}</div>
-      </div>
-      <div class="jogo-local">${jogo.local}</div>
-      <table class="palpites-table">
-        <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
-        <tbody>${linhas}</tbody>
-      </table>
-    </div>`;
+  const secPassados = document.getElementById("secao-passados");
+  if (secPassados) {
+    secPassados.style.display = passados.length ? "" : "none";
+    document.getElementById("jogos-passados").innerHTML = blocoPorDia(passados);
   }
-  if (diaAtual !== "") jhtml += "</div>";
-  document.getElementById("jogos").innerHTML = jhtml;
+
+  // clique para expandir/colapsar jogos encerrados
+  document.querySelectorAll(".jogo-card.colapsavel .jogo-header").forEach(h => {
+    h.addEventListener("click", () => {
+      const card = h.closest(".jogo-card");
+      const chave = card.getAttribute("data-jogo");
+      if (EXPANDIDOS.has(chave)) EXPANDIDOS.delete(chave); else EXPANDIDOS.add(chave);
+      card.classList.toggle("colapsado");
+      const seta = card.querySelector(".seta");
+      if (seta) seta.textContent = card.classList.contains("colapsado") ? "▸" : "▾";
+    });
+  });
 }
 
 // ----- loop -----

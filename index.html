@@ -64,24 +64,34 @@
     text-transform: uppercase;
   }
 
-  /* NAV BUTTON */
-  .nav-wrap { text-align: center; margin-top: 14px; position: relative; z-index: 1; }
-  .nav-btn {
+  /* SWITCH iOS ENTRE PÁGINAS */
+  .switch-wrap { text-align: center; margin-top: 16px; position: relative; z-index: 1; }
+  .switch {
+    display: inline-flex;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 26px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .switch a {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
-    text-decoration: none;
+    gap: 7px;
+    padding: 8px 20px;
+    border-radius: 22px;
     font-size: 13px;
     font-weight: 600;
-    padding: 9px 18px;
-    border-radius: 24px;
-    transition: background 0.2s, border-color 0.2s;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease;
   }
-  .nav-btn:hover { background: rgba(0,0,0,0.5); border-color: var(--amarelo); }
-  .nav-btn .live-dot { width: 8px; height: 8px; }
+  .switch a.ativo {
+    background: var(--amarelo);
+    color: #221c00;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
+  .switch a:not(.ativo):hover { color: #fff; }
 
   /* CONTAINER */
   .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
@@ -195,6 +205,14 @@
   .jogo-card.brasil { border-color: var(--amarelo); }
   .jogo-card.aovivo { border-color: var(--vivo); }
 
+  /* COLAPSO DE JOGOS ENCERRADOS */
+  .jogo-card.colapsavel .jogo-header { cursor: pointer; user-select: none; }
+  .jogo-card.colapsavel .jogo-header:hover { background: rgba(255,255,255,0.06); }
+  .jogo-card.colapsado .jogo-local,
+  .jogo-card.colapsado .palpites-table { display: none; }
+  .jogo-card.colapsado .jogo-times { padding-bottom: 12px; }
+  .seta { color: var(--texto2); font-size: 13px; margin-left: 2px; }
+
   .jogo-header {
     background: rgba(255,255,255,0.03);
     padding: 10px 16px;
@@ -210,6 +228,7 @@
     gap: 6px;
     font-size: 11px;
     color: var(--texto2);
+    flex-wrap: wrap;
   }
   .jogo-times {
     padding: 12px 16px 4px;
@@ -353,8 +372,11 @@
   <span class="trophy">🏆</span>
   <h1>Bolão Copa do Mundo 2026</h1>
   <p>Família • EUA, México & Canadá • 11 Jun – 19 Jul</p>
-  <div class="nav-wrap">
-    <a class="nav-btn" href="live.html"><span class="live-dot"></span>Ranking ao vivo</a>
+  <div class="switch-wrap">
+    <div class="switch">
+      <a href="./" class="ativo">🏆 Oficial</a>
+      <a href="live.html"><span class="live-dot"></span>Ao vivo</a>
+    </div>
   </div>
 </header>
 
@@ -393,15 +415,22 @@
     <div class="ranking-list" id="ranking"></div>
   </section>
 
-  <!-- JOGOS -->
+  <!-- FILA: AO VIVO E PRÓXIMOS -->
   <section>
-    <div class="section-title">⚽ Jogos — Fase de Grupos</div>
+    <div class="section-title">⏱️ Agora e a Seguir</div>
     <div id="jogos"></div>
-    <div class="api-status" id="api-status">Carregando resultados…</div>
+    <div class="api-status" id="api-status">Carregando…</div>
 
     <div style="background:var(--card);border:1px dashed var(--borda);border-radius:12px;padding:20px;text-align:center;color:var(--texto2);font-size:13px;">
       ⚽ Os demais jogos da fase de grupos (14/06 a 27/06) serão adicionados conforme os palpites forem enviados.
     </div>
+  </section>
+
+  <!-- JOGOS ENCERRADOS (COLAPSADOS) -->
+  <section id="secao-passados" style="display:none">
+    <div class="section-title">✅ Jogos Encerrados</div>
+    <div class="api-status" style="text-align:left;padding:0 0 10px 2px;">toque em um jogo para ver os palpites e pontos</div>
+    <div id="jogos-passados"></div>
   </section>
 
 </div>
