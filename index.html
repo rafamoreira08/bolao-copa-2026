@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão Copa 2026 — Família</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #00a651;
+    --verde-escuro: #006633;
+    --amarelo: #f4c400;
+    --azul: #003580;
+    --fundo: #0a0f1e;
+    --fundo2: #111827;
+    --card: #1a2236;
+    --borda: #2a3550;
+    --texto: #e8edf5;
+    --texto2: #8fa3c0;
+    --ouro: #f4c400;
+    --prata: #b0bec5;
+    --bronze: #cd7f32;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--azul) 100%);
+    padding: 32px 20px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '⚽';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.04;
+    top: -40px;
+    right: -20px;
+  }
+  header .trophy { font-size: 48px; display: block; margin-bottom: 8px; }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 6vw, 52px);
+    letter-spacing: 3px;
+    color: var(--amarelo);
+    line-height: 1;
+  }
+  header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* CONTAINER */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* SEÇÃO */
+  section { margin-bottom: 32px; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--amarelo);
+    border-left: 4px solid var(--verde);
+    padding-left: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* REGRAS */
+  .regras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .regra-card {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .regra-card .pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+  }
+  .regra-card .pts.ouro { color: var(--ouro); }
+  .regra-card .pts.prata { color: var(--prata); }
+  .regra-card .pts.bronze { color: var(--bronze); }
+  .regra-card .pts.zero { color: var(--texto2); }
+  .regra-card .label {
+    font-size: 12px;
+    color: var(--texto2);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  .regra-card .emoji { font-size: 22px; margin-bottom: 6px; }
+
+  /* RANKING */
+  .ranking-list { display: flex; flex-direction: column; gap: 8px; }
+  .ranking-item {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.2s;
+  }
+  .ranking-item:hover { border-color: var(--verde); }
+  .ranking-item.pos-1 { border-color: var(--ouro); background: linear-gradient(90deg, #1a2236, #2a2010); }
+  .ranking-item.pos-2 { border-color: var(--prata); }
+  .ranking-item.pos-3 { border-color: var(--bronze); }
+  .pos-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .pos-1 .pos-badge { color: var(--ouro); }
+  .pos-2 .pos-badge { color: var(--prata); }
+  .pos-3 .pos-badge { color: var(--bronze); }
+  .nome { font-weight: 600; font-size: 16px; flex: 1; }
+  .total-pts {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--verde);
+  }
+  .pts-label { font-size: 11px; color: var(--texto2); }
+
+  /* JOGOS */
+  .dia-bloco { margin-bottom: 28px; }
+  .dia-header {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--texto2);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .dia-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--borda);
+  }
+
+  .jogo-card {
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .jogo-card.encerrado { border-color: var(--verde-escuro); }
+  .jogo-card.brasil { border-color: var(--amarelo); }
+
+  .jogo-header {
+    background: rgba(255,255,255,0.03);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--borda);
+    gap: 8px;
+  }
+  .jogo-info-linha {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--texto2);
+  }
+  .jogo-times {
+    padding: 12px 16px 4px;
+    display: grid;
+    grid-template-columns: 1fr 48px 1fr;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .jogo-local {
+    font-size: 11px;
+    color: var(--texto2);
+    text-align: center;
+    padding: 2px 16px 12px;
+  }
+  .time-nome {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .time-nome.esquerda { text-align: left; }
+  .time-nome.direita { text-align: right; }
+  .vs {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--texto2);
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .resultado-real {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--amarelo);
+    letter-spacing: 2px;
+  }
+  .resultado-real.pendente { color: var(--texto2); font-size: 12px; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+
+  /* PALPITES TABLE */
+  .palpites-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .palpites-table th {
+    background: rgba(255,255,255,0.04);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--texto2);
+    border-bottom: 1px solid var(--borda);
+  }
+  .palpites-table td {
+    padding: 9px 12px;
+    border-bottom: 1px solid rgba(42,53,80,0.5);
+    vertical-align: middle;
+  }
+  .palpites-table tr:last-child td { border-bottom: none; }
+  .palpites-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .palpite-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--texto);
+  }
+  .palpite-val.aguardando { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--texto2); }
+
+  .badge-pts {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    min-width: 48px;
+    text-align: center;
+  }
+  .badge-10 { background: #00a65130; color: #00e676; border: 1px solid var(--verde); }
+  .badge-6  { background: #3b82f630; color: #93c5fd; border: 1px solid #3b82f6; }
+  .badge-3  { background: #f4c40030; color: var(--amarelo); border: 1px solid var(--amarelo); }
+  .badge-0  { background: rgba(255,255,255,0.05); color: var(--texto2); border: 1px solid var(--borda); }
+  .badge-pending { background: transparent; color: var(--texto2); font-size: 12px; border: none; }
+
+  /* STATUS TAG */
+  .status-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .tag-encerrado { background: #00a65115; color: var(--verde); border: 1px solid var(--verde-escuro); }
+  .tag-hoje { background: #f4c40020; color: var(--amarelo); border: 1px solid var(--amarelo); }
+  .tag-futuro { background: rgba(255,255,255,0.05); color: var(--texto2); border: 1px solid var(--borda); }
+  .tag-brasil { background: #f4c40030; color: var(--amarelo); border: 1px solid var(--amarelo); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--texto2);
+    border-top: 1px solid var(--borda);
+  }
+
+  @media (max-width: 600px) {
+    .jogo-times { font-size: 13px; gap: 8px; }
+    .regras-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="trophy">🏆</span>
+  <h1>Bolão Copa do Mundo 2026</h1>
+  <p>Família • EUA, México & Canadá • 11 Jun – 19 Jul</p>
+</header>
+
+<div class="container">
+
+  <!-- REGRAS -->
+  <section>
+    <div class="section-title">📋 Regras de Pontuação</div>
+    <div class="regras-grid">
+      <div class="regra-card">
+        <div class="emoji">🎯</div>
+        <div class="pts ouro">10</div>
+        <div class="label">Placar exato</div>
+      </div>
+      <div class="regra-card">
+        <div class="emoji">✅</div>
+        <div class="pts prata">6</div>
+        <div class="label">Vencedor/empate certo + diferença de gols certa</div>
+      </div>
+      <div class="regra-card">
+        <div class="emoji">👍</div>
+        <div class="pts bronze">3</div>
+        <div class="label">Vencedor certo, mas diferença de gols errada</div>
+      </div>
+      <div class="regra-card">
+        <div class="emoji">❌</div>
+        <div class="pts zero">0</div>
+        <div class="label">Errou tudo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section>
+    <div class="section-title">🏅 Ranking Geral</div>
+    <div class="ranking-list">
+
+      <div class="ranking-item pos-1">
+        <div class="pos-badge">1</div>
+        <div class="nome">🎯 Rafa</div>
+        <div style="text-align:right">
+          <div class="total-pts">10</div>
+          <div class="pts-label">pontos</div>
+        </div>
+      </div>
+
+      <div class="ranking-item pos-2">
+        <div class="pos-badge">2</div>
+        <div class="nome">Teu</div>
+        <div style="text-align:right">
+          <div class="total-pts">6</div>
+          <div class="pts-label">pontos</div>
+        </div>
+      </div>
+
+      <div class="ranking-item pos-3">
+        <div class="pos-badge">3</div>
+        <div class="nome">Xyko</div>
+        <div style="text-align:right">
+          <div class="total-pts">3</div>
+          <div class="pts-label">pontos</div>
+        </div>
+      </div>
+
+      <div class="ranking-item pos-3">
+        <div class="pos-badge">3</div>
+        <div class="nome">Dani</div>
+        <div style="text-align:right">
+          <div class="total-pts">3</div>
+          <div class="pts-label">pontos</div>
+        </div>
+      </div>
+
+      <div class="ranking-item pos-3">
+        <div class="pos-badge">3</div>
+        <div class="nome">Lu</div>
+        <div style="text-align:right">
+          <div class="total-pts">3</div>
+          <div class="pts-label">pontos</div>
+        </div>
+      </div>
+
+      <div class="ranking-item">
+        <div class="pos-badge" style="color:var(--texto2)">6</div>
+        <div class="nome">Soninha</div>
+        <div style="text-align:right">
+          <div class="total-pts">0</div>
+          <div class="pts-label">pontos</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- JOGOS — 11/06 -->
+  <section>
+    <div class="section-title">⚽ Jogos — Fase de Grupos</div>
+
+    <div class="dia-bloco">
+      <div class="dia-header">Quinta-feira, 11 de junho</div>
+
+      <!-- JOGO 1 -->
+      <div class="jogo-card encerrado">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 16h00</span><span>·</span><span>Grupo A</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-encerrado">Encerrado</span>
+            <span class="resultado-real">2 × 0</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇲🇽 México</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">África do Sul 🇿🇦</div>
+        </div>
+        <div class="jogo-local">📍 Cidade do México</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val">2 × 0</span></td><td><span class="badge-pts badge-10">10</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val">2 × 1</span></td><td><span class="badge-pts badge-3">3</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val">3 × 0</span></td><td><span class="badge-pts badge-6">6</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val">2 × 1</span></td><td><span class="badge-pts badge-3">3</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val">1 × 2</span></td><td><span class="badge-pts badge-0">0</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val">1 × 0</span></td><td><span class="badge-pts badge-3">3</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- JOGO 2 -->
+      <div class="jogo-card">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 23h00</span><span>·</span><span>Grupo A</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-hoje">Hoje</span>
+            <span class="resultado-real pendente">Aguardando</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇰🇷 Coreia do Sul</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">Rep. Tcheca 🇨🇿</div>
+        </div>
+        <div class="jogo-local">📍 Guadalajara</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val">1 × 1</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val">1 × 0</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val">0 × 0</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val">1 × 0</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val">1 × 2</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val">1 × 1</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 12/06 -->
+    <div class="dia-bloco">
+      <div class="dia-header">Sexta-feira, 12 de junho</div>
+
+      <div class="jogo-card">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 16h00</span><span>·</span><span>Grupo B</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-futuro">Em breve</span>
+            <span class="resultado-real pendente">Aguardando</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇨🇦 Canadá</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">Bósnia 🇧🇦</div>
+        </div>
+        <div class="jogo-local">📍 Toronto</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="jogo-card">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 22h00</span><span>·</span><span>Grupo D</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-futuro">Em breve</span>
+            <span class="resultado-real pendente">Aguardando</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇺🇸 EUA</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">Paraguai 🇵🇾</div>
+        </div>
+        <div class="jogo-local">📍 Los Angeles</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 13/06 -->
+    <div class="dia-bloco">
+      <div class="dia-header">Sábado, 13 de junho</div>
+
+      <div class="jogo-card">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 16h00</span><span>·</span><span>Grupo B</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-futuro">Em breve</span>
+            <span class="resultado-real pendente">Aguardando</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇶🇦 Catar</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">Suíça 🇨🇭</div>
+        </div>
+        <div class="jogo-local">📍 San Francisco</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="jogo-card brasil">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 19h00</span><span>·</span><span>Grupo C</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-brasil">🇧🇷 Brasil</span>
+            <span class="resultado-real pendente">Aguardando</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇧🇷 Brasil</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">Marrocos 🇲🇦</div>
+        </div>
+        <div class="jogo-local">📍 Nova York / NJ</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="jogo-card">
+        <div class="jogo-header">
+          <div class="jogo-info-linha"><span>🕓 22h00</span><span>·</span><span>Grupo C</span></div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="status-tag tag-futuro">Em breve</span>
+            <span class="resultado-real pendente">Aguardando</span>
+          </div>
+        </div>
+        <div class="jogo-times">
+          <div class="time-nome esquerda">🇭🇹 Haiti</div>
+          <div class="vs">VS</div>
+          <div class="time-nome direita">Escócia 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
+        </div>
+        <div class="jogo-local">📍 Boston</div>
+        <table class="palpites-table">
+          <thead><tr><th>Participante</th><th>Palpite</th><th>Pontos</th></tr></thead>
+          <tbody>
+            <tr><td>Rafa</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Xyko</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Teu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Dani</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Soninha</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+            <tr><td>Lu</td><td><span class="palpite-val aguardando">⏳ aguardando</span></td><td><span class="badge-pts badge-pending">—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- NOTA JOGOS RESTANTES -->
+    <div style="background:var(--card);border:1px dashed var(--borda);border-radius:12px;padding:20px;text-align:center;color:var(--texto2);font-size:13px;">
+      ⚽ Os demais jogos da fase de grupos (14/06 a 27/06) serão adicionados conforme os palpites forem enviados.
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  Bolão Família • Copa do Mundo 2026 &nbsp;·&nbsp; Atualizado em 11/06/2026 — após Jogo 1
+</footer>
+
+</body>
+</html>
