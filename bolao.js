@@ -161,10 +161,10 @@ function blocoPorDia(jogos) {
 
 // ----- render -----
 function render() {
-  // ranking
-  const totais = {};
+  // ranking — desempate: nº de placares exatos (10 pts)
+  const totais = {}, exatos = {};
   let temProvisorio = false;
-  PARTICIPANTES.forEach(p => totais[p] = 0);
+  PARTICIPANTES.forEach(p => { totais[p] = 0; exatos[p] = 0; });
   for (const jogo of JOGOS) {
     if (!jogo.palpites || !jogo.placar) continue;
     const conta = jogo.estado === "post" || (MODO_LIVE && jogo.estado === "in");
@@ -172,15 +172,20 @@ function render() {
     if (jogo.estado === "in") temProvisorio = true;
     for (const p of PARTICIPANTES) {
       const pts = calcPontos(jogo.palpites[p], jogo.placar);
-      if (pts !== null) totais[p] += pts;
+      if (pts !== null) {
+        totais[p] += pts;
+        if (pts === 10) exatos[p]++;
+      }
     }
   }
-  const ordenado = [...PARTICIPANTES].sort((a, b) => totais[b] - totais[a]);
+  const ordenado = [...PARTICIPANTES].sort((a, b) =>
+    totais[b] - totais[a] || exatos[b] - exatos[a]);
   let html = "";
   let posAnterior = 0;
   ordenado.forEach((p, i) => {
     let pos = i + 1;
-    if (i > 0 && totais[p] === totais[ordenado[i - 1]]) pos = posAnterior;
+    const ant = ordenado[i - 1];
+    if (i > 0 && totais[p] === totais[ant] && exatos[p] === exatos[ant]) pos = posAnterior;
     posAnterior = pos;
     const cls = pos <= 3 ? " pos-" + pos : "";
     const medalhas = { 1: "🥇 ", 2: "🥈 ", 3: "🥉 " };
@@ -190,10 +195,11 @@ function render() {
       <div class="nome">${nome}</div>
       <div style="text-align:right">
         <div class="total-pts">${totais[p]}</div>
-        <div class="pts-label">pontos</div>
+        <div class="pts-label">pontos · 🎯 ${exatos[p]}</div>
       </div>
     </div>`;
   });
+  html += `<div class="prov-note" style="display:block;text-align:right">🎯 = placares exatos · critério de desempate</div>`;
   document.getElementById("ranking").innerHTML = html;
   const provEl = document.getElementById("prov-note");
   if (provEl) provEl.style.display = (MODO_LIVE && temProvisorio) ? "block" : "none";
