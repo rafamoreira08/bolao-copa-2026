@@ -88,12 +88,12 @@ function cardJogo(jogo) {
   const expandido = EXPANDIDOS.has(chaveJogo(jogo));
   const mostraParcial = MODO_LIVE && jogo.estado === "in" && jogo.placar;
 
-  let cardCls = "", tag = "", placarHtml = "";
+  let cardCls = "", tag = "", placarHtml = "", centro = "VS";
   if (jogo.estado === "in") {
     cardCls = " aovivo";
     if (mostraParcial) {
       tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO ${jogo.relogio}</span>`;
-      placarHtml = `<span class="resultado-real vivo">${jogo.placar[0]} × ${jogo.placar[1]}</span>`;
+      centro = `<span class="gol vivo">${jogo.placar[0]}</span><span>VS</span><span class="gol vivo">${jogo.placar[1]}</span>`;
     } else {
       tag = `<span class="status-tag tag-vivo"><span class="live-dot"></span>AO VIVO</span>`;
       placarHtml = `<a href="live.html" style="color:var(--texto2);font-size:12px;">acompanhar ⚡</a>`;
@@ -101,7 +101,8 @@ function cardJogo(jogo) {
   } else if (passado) {
     cardCls = " encerrado colapsavel" + (expandido ? "" : " colapsado");
     tag = `<span class="status-tag tag-encerrado">Encerrado</span>`;
-    placarHtml = `<span class="resultado-real">${jogo.placar[0]} × ${jogo.placar[1]}</span><span class="seta">${expandido ? "▾" : "▸"}</span>`;
+    placarHtml = `<span class="seta">${expandido ? "▾" : "▸"}</span>`;
+    centro = `<span class="gol">${jogo.placar[0]}</span><span>VS</span><span class="gol">${jogo.placar[1]}</span>`;
   } else {
     tag = jogo.brasil
       ? `<span class="status-tag tag-brasil">🇧🇷 Brasil</span>`
@@ -133,7 +134,7 @@ function cardJogo(jogo) {
     </div>
     <div class="jogo-times">
       <div class="time-nome esquerda">${jogo.casa}</div>
-      <div class="vs">VS</div>
+      <div class="vs">${centro}</div>
       <div class="time-nome direita">${jogo.fora}</div>
     </div>
     <div class="jogo-local">${jogo.local}</div>
