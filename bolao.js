@@ -21,14 +21,42 @@ function calcPontos(palpite, resultado) {
 }
 
 // ----- API ESPN -----
+// Prioridade dos resultados:
+// 1. `manual` no dados.js (resultado consolidado na plataforma) — não consulta API
+// 2. cache local de finais já vistos pela API neste navegador
+// 3. API ESPN (só para jogos ainda não resolvidos — economiza requisições)
+function lerCache() {
+  try { return JSON.parse(localStorage.getItem("bolao_finais") || "{}"); } catch (e) { return {}; }
+}
+function salvarCache(c) {
+  try { localStorage.setItem("bolao_finais", JSON.stringify(c)); } catch (e) {}
+}
+
 async function buscarPlacares() {
+  const cache = lerCache();
+
+  // resolve primeiro o que já está consolidado (sem rede)
+  const pendentes = [];
+  for (const jogo of JOGOS) {
+    if (jogo.manual) {
+      jogo.estado = "post"; jogo.placar = jogo.manual; jogo.relogio = "";
+    } else if (cache[chaveJogo(jogo)]) {
+      jogo.estado = "post"; jogo.placar = cache[chaveJogo(jogo)]; jogo.relogio = "";
+    } else {
+      jogo.estado = "pre"; jogo.placar = null; jogo.relogio = "";
+      pendentes.push(jogo);
+    }
+  }
+
+  // só vai à API se houver jogo sem resultado consolidado
+  if (pendentes.length === 0) return;
+
   const resp = await fetch(API_URL);
   if (!resp.ok) throw new Error("HTTP " + resp.status);
   const data = await resp.json();
   const eventos = data.events || [];
 
-  for (const jogo of JOGOS) {
-    jogo.estado = "pre"; jogo.placar = null; jogo.relogio = "";
+  for (const jogo of pendentes) {
     const ev = eventos.find(e => {
       const comp = e.competitions && e.competitions[0];
       if (!comp || !comp.competitors) return false;
@@ -45,27 +73,13 @@ async function buscarPlacares() {
       if (jogo.estado !== "pre" && cCasa && cFora) {
         jogo.placar = [parseInt(cCasa.score, 10) || 0, parseInt(cFora.score, 10) || 0];
       }
-    }
-    // fallback manual (ex: jogo encerrado que a API não retornou)
-    if (jogo.estado === "pre" && jogo.manual) {
-      jogo.estado = "post";
-      jogo.placar = jogo.manual;
-    }
-  }
-  // a API da ESPN às vezes "esquece" resultados de dias anteriores:
-  // guarda finais já vistos no navegador e restaura quando necessário
-  let cache = {};
-  try { cache = JSON.parse(localStorage.getItem("bolao_finais") || "{}"); } catch (e) {}
-  for (const jogo of JOGOS) {
-    const k = chaveJogo(jogo);
-    if (jogo.estado === "post" && jogo.placar) {
-      cache[k] = jogo.placar;
-    } else if (jogo.estado === "pre" && cache[k]) {
-      jogo.estado = "post";
-      jogo.placar = cache[k];
+      // jogo acabou: memoriza o final neste navegador
+      if (jogo.estado === "post" && jogo.placar) {
+        cache[chaveJogo(jogo)] = jogo.placar;
+        salvarCache(cache);
+      }
     }
   }
-  try { localStorage.setItem("bolao_finais", JSON.stringify(cache)); } catch (e) {}
 }
 
 // ----- card de jogo -----
