@@ -1,9 +1,8 @@
 // ============================================================
-// DADOS DO BOLÃO — para atualizar palpites/jogos, edite SÓ este arquivo
+// DADOS DO BOLÃO — gerado pela página de cadastro de palpites
 // Palpites: [golsCasa, golsFora] na ordem mostrada (casa × fora)
-// Participante sem palpite no jogo: simplesmente não incluir a chave
 // ============================================================
-const PARTICIPANTES = ["Rafa", "Xyko", "Teu", "Dani", "Soninha", "Lu"];
+const PARTICIPANTES = ["Rafa","Xyko","Teu","Dani","Soninha","Lu"];
 
 const JOGOS = [
   {
@@ -35,6 +34,7 @@ const JOGOS = [
     casa: "🇺🇸 EUA", fora: "Paraguai 🇵🇾",
     abbrCasa: "USA", abbrFora: "PAR",
     local: "📍 Los Angeles",
+    manual: [4, 1],
     palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [2,1], Dani: [0,2], Soninha: [2,2], Lu: [0,1] }
   },
   {
