@@ -42,6 +42,7 @@ const JOGOS = [
     casa: "🇶🇦 Catar", fora: "Suíça 🇨🇭",
     abbrCasa: "QAT", abbrFora: "SUI",
     local: "📍 San Francisco",
+    manual: [1, 1],
     palpites: { Rafa: [0,2], Xyko: [1,2], Teu: [0,3], Dani: [0,1], Soninha: [1,2], Lu: [0,2] }
   },
   {
@@ -50,6 +51,7 @@ const JOGOS = [
     abbrCasa: "BRA", abbrFora: "MAR",
     local: "📍 Nova York / NJ",
     brasil: true,
+    manual: [1, 1],
     palpites: { Rafa: [2,1], Xyko: [2,0], Teu: [2,1], Dani: [2,0], Soninha: [3,2], Lu: [3,0] }
   },
   {
@@ -57,6 +59,7 @@ const JOGOS = [
     casa: "🇭🇹 Haiti", fora: "Escócia 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
     abbrCasa: "HAI", abbrFora: "SCO",
     local: "📍 Boston",
+    manual: [0, 1],
     palpites: { Rafa: [1,2], Xyko: [0,3], Teu: [0,3], Dani: [1,1], Soninha: [0,2], Lu: [0,0] }
   },
   {
@@ -64,6 +67,7 @@ const JOGOS = [
     casa: "🇦🇺 Austrália", fora: "Turquia 🇹🇷",
     abbrCasa: "AUS", abbrFora: "TUR",
     local: "📍 Vancouver",
+    manual: [2, 0],
     palpites: { Rafa: [0,0], Xyko: [1,1], Teu: [1,2], Dani: [1,0], Soninha: [1,1], Lu: [1,1] }
   },
   {
@@ -71,6 +75,7 @@ const JOGOS = [
     casa: "🇩🇪 Alemanha", fora: "Curaçao 🇨🇼",
     abbrCasa: "GER", abbrFora: "CUW",
     local: "📍 Houston",
+    manual: [7, 1],
     palpites: { Rafa: [4,0], Xyko: [4,0], Teu: [5,0], Dani: [4,0], Soninha: [3,0], Lu: [5,0] }
   },
   {
@@ -78,6 +83,7 @@ const JOGOS = [
     casa: "🇳🇱 Holanda", fora: "Japão 🇯🇵",
     abbrCasa: "NED", abbrFora: "JPN",
     local: "📍 Dallas",
+    manual: [2, 2],
     palpites: { Rafa: [1,2], Xyko: [3,1], Teu: [3,2], Dani: [2,0], Soninha: [2,1], Lu: [3,1] }
   },
   {
@@ -85,6 +91,7 @@ const JOGOS = [
     casa: "🇨🇮 C. do Marfim", fora: "Equador 🇪🇨",
     abbrCasa: "CIV", abbrFora: "ECU",
     local: "📍 Filadélfia",
+    manual: [1, 0],
     palpites: { Rafa: [0,2], Xyko: [0,1], Teu: [1,2], Dani: [1,2], Soninha: [1,2], Lu: [0,1] }
   },
   {
