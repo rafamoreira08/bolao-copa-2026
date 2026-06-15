@@ -33,20 +33,65 @@
     padding: 14px 16px; font-size: 13px; color: var(--texto); margin-bottom: 24px; line-height: 1.5;
   }
 
+  /* ── Separador de seção ── */
+  .secao-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--verde);
+    border-left: 4px solid var(--verde);
+    padding-left: 12px;
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .secao-titulo span {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--texto2);
+  }
+
+  /* ── Blocos de jogo ── */
   .jogo-bloco {
     background: var(--card); border: 1px solid var(--borda); border-radius: 14px;
-    margin-bottom: 16px; overflow: hidden;
+    margin-bottom: 12px; overflow: hidden;
   }
+  .jogo-bloco.encerrado { border-color: var(--verde-escuro); }
   .jogo-titulo {
     background: rgba(255,255,255,0.04); padding: 12px 16px;
     display: flex; justify-content: space-between; align-items: center; gap: 8px;
     border-bottom: 1px solid var(--borda); font-weight: 600; font-size: 14px;
     cursor: pointer; user-select: none;
+    transition: background 0.15s;
   }
-  .jogo-titulo .meta { font-size: 11px; color: var(--texto2); font-weight: 400; }
+  .jogo-titulo:hover { background: rgba(255,255,255,0.07); }
+  .jogo-bloco.encerrado .jogo-titulo { background: rgba(0,166,81,0.06); }
+  .jogo-titulo .meta { font-size: 11px; color: var(--texto2); font-weight: 400; white-space: nowrap; }
+  .jogo-titulo .seta { font-size: 11px; color: var(--texto2); margin-left: 4px; transition: transform 0.2s; }
+  .jogo-bloco.aberto .seta { transform: rotate(180deg); }
+
+  /* ── Placar exibido no header do encerrado ── */
+  .placar-enc {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--amarelo);
+    background: rgba(244,196,0,0.1);
+    border: 1px solid rgba(244,196,0,0.35);
+    border-radius: 20px;
+    padding: 2px 10px;
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  /* ── Corpo colapsável ── */
   .jogo-corpo { padding: 12px 16px; display: none; }
   .jogo-bloco.aberto .jogo-corpo { display: block; }
 
+  /* ── Linhas de palpite ── */
   .linha-palpite {
     display: grid; grid-template-columns: 1fr 64px 24px 64px; align-items: center;
     gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(42,53,80,0.5);
@@ -62,6 +107,7 @@
   .linha-palpite input:focus { outline: none; border-color: var(--amarelo); }
   .linha-palpite input::placeholder { color: #3d4a66; }
 
+  /* ── Ações ── */
   .acoes { text-align: center; margin: 28px 0 16px; }
   button {
     background: var(--verde); border: none; color: #fff; font-weight: 700;
@@ -80,6 +126,10 @@
   .passos { font-size: 13px; color: var(--texto2); line-height: 1.8; margin-top: 12px; }
   .passos a { color: var(--amarelo); }
   .copiado { color: var(--verde); font-size: 13px; margin-left: 10px; }
+
+  @media (max-width: 500px) {
+    .linha-palpite { grid-template-columns: 1fr 52px 18px 52px; gap: 5px; }
+  }
 </style>
 </head>
 <body>
@@ -124,38 +174,67 @@
 <script>
 // ----- monta o formulário -----
 function montar() {
-  let html = "";
-  // jogos sem resultado final primeiro (em ordem cronológica);
-  // jogos já encerrados (com resultado) ficam por último, do mais recente ao mais antigo
+  // Separa pendentes (sem manual) e encerrados (com manual), ambos em ordem cronológica
   const pendentes = [], passados = [];
-  JOGOS.forEach((j, idx) => (j.manual ? passados.unshift([j, idx]) : pendentes.push([j, idx])));
-  [...pendentes, ...passados].forEach(([j, idx]) => {
-    const aberto = (j.palpites === null || Object.keys(j.palpites || {}).length < PARTICIPANTES.length) ? " aberto" : "";
-    const m = j.manual || ["", ""];
-    let linhas = `<div class="linha-palpite" style="border-bottom:2px solid var(--borda)">
-      <label style="color:var(--amarelo)">🏁 Resultado final</label>
-      <input type="number" min="0" max="20" id="j${idx}-manual-c" value="${m[0]}" placeholder="–">
-      <div class="x">×</div>
-      <input type="number" min="0" max="20" id="j${idx}-manual-f" value="${m[1]}" placeholder="–">
-    </div>`;
-    for (const p of PARTICIPANTES) {
-      const v = j.palpites && j.palpites[p] ? j.palpites[p] : ["", ""];
-      linhas += `<div class="linha-palpite">
-        <label>${p}</label>
-        <input type="number" min="0" max="20" id="j${idx}-${p}-c" value="${v[0]}" placeholder="–">
-        <div class="x">×</div>
-        <input type="number" min="0" max="20" id="j${idx}-${p}-f" value="${v[1]}" placeholder="–">
-      </div>`;
-    }
-    html += `<div class="jogo-bloco${aberto}">
-      <div class="jogo-titulo" onclick="this.parentElement.classList.toggle('aberto')">
-        <span>${j.casa} × ${j.fora}</span>
-        <span class="meta">${j.dia} · ${j.hora}</span>
-      </div>
-      <div class="jogo-corpo">${linhas}</div>
-    </div>`;
+  JOGOS.forEach((j, idx) => (j.manual ? passados : pendentes).push([j, idx]));
+
+  let html = "";
+
+  // ── Jogos pendentes (sem resultado) ──
+  pendentes.forEach(([j, idx]) => {
+    const incompleto = !j.palpites || Object.keys(j.palpites).length < PARTICIPANTES.length;
+    const aberto = incompleto ? " aberto" : "";
+    html += blocoJogo(j, idx, false, aberto);
   });
+
+  // ── Seção encerrados ──
+  if (passados.length > 0) {
+    html += `<div class="secao-titulo">✅ Jogos Encerrados <span>— toque para editar</span></div>`;
+    passados.forEach(([j, idx]) => {
+      html += blocoJogo(j, idx, true, "");   // colapsado por padrão
+    });
+  }
+
   document.getElementById("formulario").innerHTML = html;
+}
+
+function blocoJogo(j, idx, encerrado, classeExtra) {
+  const m = j.manual || ["", ""];
+
+  // Header: placar badge para encerrados
+  const placarBadge = encerrado
+    ? `<span class="placar-enc">${m[0]} × ${m[1]}</span>`
+    : "";
+
+  // Linha de resultado final
+  let linhas = `<div class="linha-palpite" style="border-bottom:2px solid var(--borda)">
+    <label style="color:var(--amarelo)">🏁 Resultado final</label>
+    <input type="number" min="0" max="20" id="j${idx}-manual-c" value="${m[0]}" placeholder="–">
+    <div class="x">×</div>
+    <input type="number" min="0" max="20" id="j${idx}-manual-f" value="${m[1]}" placeholder="–">
+  </div>`;
+
+  // Linhas de palpite por participante
+  for (const p of PARTICIPANTES) {
+    const v = j.palpites && j.palpites[p] ? j.palpites[p] : ["", ""];
+    linhas += `<div class="linha-palpite">
+      <label>${p}</label>
+      <input type="number" min="0" max="20" id="j${idx}-${p}-c" value="${v[0]}" placeholder="–">
+      <div class="x">×</div>
+      <input type="number" min="0" max="20" id="j${idx}-${p}-f" value="${v[1]}" placeholder="–">
+    </div>`;
+  }
+
+  return `<div class="jogo-bloco${encerrado ? " encerrado" : ""}${classeExtra}">
+    <div class="jogo-titulo" onclick="this.parentElement.classList.toggle('aberto')">
+      <span style="display:flex;align-items:center;gap:0;flex-wrap:wrap">${j.casa} × ${j.fora}${placarBadge}</span>
+      <span style="display:flex;align-items:center;gap:6px">
+        <span class="meta">${j.dia} · ${j.hora}</span>
+        <span class="seta">▼</span>
+      </span>
+    </div>
+    <div class="jogo-corpo">${linhas}</div>
+  </div>`;
 }
 
 // ----- lê o formulário de volta para JOGOS -----
