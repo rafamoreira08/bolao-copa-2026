@@ -93,6 +93,62 @@ const JOGOS = [
     abbrCasa: "SWE", abbrFora: "TUN",
     local: "📍 Monterrey",
     palpites: { Rafa: [1,0], Xyko: [3,0], Teu: [0,0], Dani: [2,0], Soninha: [2,0], Lu: [1,0] }
+  },
+  {
+    dia: "Segunda-feira, 15 de junho", hora: "13h00", grupo: "H",
+    casa: "🇪🇸 Espanha", fora: "Cabo Verde 🇨🇻",
+    abbrCasa: "ESP", abbrFora: "CPV",
+    local: "📍 Atlanta",
+    palpites: { Rafa: [6,0], Xyko: [5,0], Teu: [4,0], Dani: [3,0], Soninha: [3,0], Lu: [3,0] }
+  },
+  {
+    dia: "Segunda-feira, 15 de junho", hora: "16h00", grupo: "G",
+    casa: "🇧🇪 Bélgica", fora: "Egito 🇪🇬",
+    abbrCasa: "BEL", abbrFora: "EGY",
+    local: "📍 Seattle",
+    palpites: { Rafa: [3,1], Xyko: [1,1], Teu: [2,0], Dani: [2,0], Soninha: [2,1], Lu: [2,1] }
+  },
+  {
+    dia: "Segunda-feira, 15 de junho", hora: "19h00", grupo: "H",
+    casa: "🇸🇦 Arábia Saudita", fora: "Uruguai 🇺🇾",
+    abbrCasa: "KSA", abbrFora: "URU",
+    local: "📍 Miami",
+    palpites: { Rafa: [0,2], Xyko: [1,2], Teu: [1,2], Dani: [1,2], Soninha: [2,0], Lu: [0,1] }
+  },
+  {
+    dia: "Segunda-feira, 15 de junho", hora: "22h00", grupo: "G",
+    casa: "🇮🇷 Irã", fora: "Nova Zelândia 🇳🇿",
+    abbrCasa: "IRN", abbrFora: "NZL",
+    local: "📍 Los Angeles",
+    palpites: { Rafa: [2,0], Xyko: [1,1], Teu: [0,0], Dani: [0,1], Soninha: [1,0], Lu: [1,1] }
+  },
+  {
+    dia: "Terça-feira, 16 de junho", hora: "16h00", grupo: "I",
+    casa: "🇫🇷 França", fora: "Senegal 🇸🇳",
+    abbrCasa: "FRA", abbrFora: "SEN",
+    local: "📍 Nova York / NJ",
+    palpites: { Rafa: [3,0], Xyko: [3,0], Teu: [2,0], Dani: [3,0], Soninha: [2,0], Lu: [4,0] }
+  },
+  {
+    dia: "Terça-feira, 16 de junho", hora: "19h00", grupo: "I",
+    casa: "🇮🇶 Iraque", fora: "Noruega 🇳🇴",
+    abbrCasa: "IRQ", abbrFora: "NOR",
+    local: "📍 Boston",
+    palpites: { Rafa: [0,2], Xyko: [0,1], Teu: [0,1], Dani: [0,1], Soninha: [0,2], Lu: [0,1] }
+  },
+  {
+    dia: "Terça-feira, 16 de junho", hora: "22h00", grupo: "J",
+    casa: "🇦🇷 Argentina", fora: "Argélia 🇩🇿",
+    abbrCasa: "ARG", abbrFora: "ALG",
+    local: "📍 Kansas City",
+    palpites: { Rafa: [2,0], Xyko: [2,0], Teu: [2,1], Dani: [2,0], Soninha: [3,1], Lu: [2,0] }
+  },
+  {
+    dia: "Quarta-feira, 17 de junho", hora: "01h00", grupo: "J",
+    casa: "🇦🇹 Áustria", fora: "Jordânia 🇯🇴",
+    abbrCasa: "AUT", abbrFora: "JOR",
+    local: "📍 Santa Clara",
+    palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [1,0], Dani: [1,1], Soninha: [2,0], Lu: [1,0] }
   }
 ];
 
