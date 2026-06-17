@@ -99,6 +99,7 @@ const JOGOS = [
     casa: "🇸🇪 Suécia", fora: "Tunísia 🇹🇳",
     abbrCasa: "SWE", abbrFora: "TUN",
     local: "📍 Monterrey",
+    manual: [5, 1],
     palpites: { Rafa: [1,0], Xyko: [3,0], Teu: [0,0], Dani: [2,0], Soninha: [2,0], Lu: [1,0] }
   },
   {
@@ -106,6 +107,7 @@ const JOGOS = [
     casa: "🇪🇸 Espanha", fora: "Cabo Verde 🇨🇻",
     abbrCasa: "ESP", abbrFora: "CPV",
     local: "📍 Atlanta",
+    manual: [0, 0],
     palpites: { Rafa: [6,0], Xyko: [5,0], Teu: [4,0], Dani: [3,0], Soninha: [3,0], Lu: [3,0] }
   },
   {
@@ -113,6 +115,7 @@ const JOGOS = [
     casa: "🇧🇪 Bélgica", fora: "Egito 🇪🇬",
     abbrCasa: "BEL", abbrFora: "EGY",
     local: "📍 Seattle",
+    manual: [1, 1],
     palpites: { Rafa: [3,1], Xyko: [1,1], Teu: [2,0], Dani: [2,0], Soninha: [2,1], Lu: [2,1] }
   },
   {
@@ -120,6 +123,7 @@ const JOGOS = [
     casa: "🇸🇦 Arábia Saudita", fora: "Uruguai 🇺🇾",
     abbrCasa: "KSA", abbrFora: "URU",
     local: "📍 Miami",
+    manual: [1, 1],
     palpites: { Rafa: [0,2], Xyko: [1,2], Teu: [1,2], Dani: [1,2], Soninha: [2,0], Lu: [0,1] }
   },
   {
@@ -127,6 +131,7 @@ const JOGOS = [
     casa: "🇮🇷 Irã", fora: "Nova Zelândia 🇳🇿",
     abbrCasa: "IRN", abbrFora: "NZL",
     local: "📍 Los Angeles",
+    manual: [2, 2],
     palpites: { Rafa: [2,0], Xyko: [1,1], Teu: [0,0], Dani: [0,1], Soninha: [1,0], Lu: [1,1] }
   },
   {
@@ -134,6 +139,7 @@ const JOGOS = [
     casa: "🇫🇷 França", fora: "Senegal 🇸🇳",
     abbrCasa: "FRA", abbrFora: "SEN",
     local: "📍 Nova York / NJ",
+    manual: [3, 1],
     palpites: { Rafa: [3,0], Xyko: [3,0], Teu: [2,0], Dani: [3,0], Soninha: [2,0], Lu: [4,0] }
   },
   {
@@ -141,6 +147,7 @@ const JOGOS = [
     casa: "🇮🇶 Iraque", fora: "Noruega 🇳🇴",
     abbrCasa: "IRQ", abbrFora: "NOR",
     local: "📍 Boston",
+    manual: [1, 4],
     palpites: { Rafa: [0,2], Xyko: [0,1], Teu: [0,1], Dani: [0,1], Soninha: [0,2], Lu: [0,1] }
   },
   {
@@ -148,6 +155,7 @@ const JOGOS = [
     casa: "🇦🇷 Argentina", fora: "Argélia 🇩🇿",
     abbrCasa: "ARG", abbrFora: "ALG",
     local: "📍 Kansas City",
+    manual: [3, 0],
     palpites: { Rafa: [2,0], Xyko: [2,0], Teu: [2,1], Dani: [2,0], Soninha: [3,1], Lu: [2,0] }
   },
   {
