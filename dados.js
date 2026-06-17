@@ -163,6 +163,7 @@ const JOGOS = [
     casa: "🇦🇹 Áustria", fora: "Jordânia 🇯🇴",
     abbrCasa: "AUT", abbrFora: "JOR",
     local: "📍 Santa Clara",
+    manual: [3, 1],
     palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [1,0], Dani: [1,1], Soninha: [2,0], Lu: [1,0] }
   },
   {
