@@ -229,3 +229,4 @@ const JOGOS = [
 ];
 
 const API_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260611-20260719&limit=300";
+
