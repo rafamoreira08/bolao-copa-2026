@@ -171,6 +171,7 @@ const JOGOS = [
     casa: "🇵🇹 Portugal", fora: "Congo 🇨🇩",
     abbrCasa: "POR", abbrFora: "COD",
     local: "📍 Houston",
+    manual: [1, 1],
     palpites: { Rafa: [5,0], Xyko: [4,0], Teu: [0,0], Dani: [3,0], Soninha: [4,0], Lu: [2,0] }
   },
   {
@@ -178,6 +179,7 @@ const JOGOS = [
     casa: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra", fora: "Croácia 🇭🇷",
     abbrCasa: "ENG", abbrFora: "CRO",
     local: "📍 Dallas",
+    manual: [4, 2],
     palpites: { Rafa: [1,1], Xyko: [3,1], Teu: [0,0], Dani: [2,2], Soninha: [3,2], Lu: [2,1] }
   },
   {
@@ -185,6 +187,7 @@ const JOGOS = [
     casa: "🇬🇭 Gana", fora: "Panamá 🇵🇦",
     abbrCasa: "GHA", abbrFora: "PAN",
     local: "📍 Toronto",
+    manual: [1, 0],
     palpites: { Rafa: [2,0], Xyko: [2,0], Teu: [2,0], Dani: [2,0], Soninha: [2,0], Lu: [1,0] }
   },
   {
@@ -192,6 +195,7 @@ const JOGOS = [
     casa: "🇺🇿 Uzbequistão", fora: "Colômbia 🇨🇴",
     abbrCasa: "UZB", abbrFora: "COL",
     local: "📍 Monterrey",
+    manual: [1, 3],
     palpites: { Rafa: [0,3], Xyko: [0,2], Teu: [2,2], Dani: [1,2], Soninha: [0,3], Lu: [0,2] }
   },
   {
