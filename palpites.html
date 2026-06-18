@@ -33,61 +33,53 @@
     padding: 14px 16px; font-size: 13px; color: var(--texto); margin-bottom: 24px; line-height: 1.5;
   }
 
+  /* ── Token config ── */
+  .token-box {
+    background: var(--card); border: 1px solid var(--borda); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 20px; font-size: 13px;
+  }
+  .token-box summary {
+    cursor: pointer; font-weight: 600; color: var(--texto2); user-select: none;
+    list-style: none; display: flex; align-items: center; gap: 8px;
+  }
+  .token-box summary::before { content: "⚙️"; }
+  .token-box .token-inner { margin-top: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .token-box input[type=password], .token-box input[type=text] {
+    flex: 1; min-width: 200px; padding: 9px 12px; border-radius: 8px;
+    border: 1px solid var(--borda); background: var(--fundo); color: var(--texto);
+    font-size: 13px; font-family: monospace;
+  }
+  .token-box input:focus { outline: none; border-color: var(--amarelo); }
+  .token-status { font-size: 12px; color: var(--verde); margin-top: 6px; }
+  .token-status.erro { color: #e05; }
+
   /* ── Separador de seção ── */
   .secao-titulo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    color: var(--verde);
-    border-left: 4px solid var(--verde);
-    padding-left: 12px;
-    margin: 32px 0 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--verde);
+    border-left: 4px solid var(--verde); padding-left: 12px; margin: 32px 0 14px;
+    display: flex; align-items: center; gap: 10px;
   }
-  .secao-titulo span {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0;
-    color: var(--texto2);
-  }
+  .secao-titulo span { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0; color: var(--texto2); }
 
   /* ── Blocos de jogo ── */
-  .jogo-bloco {
-    background: var(--card); border: 1px solid var(--borda); border-radius: 14px;
-    margin-bottom: 12px; overflow: hidden;
-  }
+  .jogo-bloco { background: var(--card); border: 1px solid var(--borda); border-radius: 14px; margin-bottom: 12px; overflow: hidden; }
   .jogo-bloco.encerrado { border-color: var(--verde-escuro); }
   .jogo-titulo {
     background: rgba(255,255,255,0.04); padding: 12px 16px;
     display: flex; justify-content: space-between; align-items: center; gap: 8px;
     border-bottom: 1px solid var(--borda); font-weight: 600; font-size: 14px;
-    cursor: pointer; user-select: none;
-    transition: background 0.15s;
+    cursor: pointer; user-select: none; transition: background 0.15s;
   }
   .jogo-titulo:hover { background: rgba(255,255,255,0.07); }
   .jogo-bloco.encerrado .jogo-titulo { background: rgba(0,166,81,0.06); }
   .jogo-titulo .meta { font-size: 11px; color: var(--texto2); font-weight: 400; white-space: nowrap; }
   .jogo-titulo .seta { font-size: 11px; color: var(--texto2); margin-left: 4px; transition: transform 0.2s; }
   .jogo-bloco.aberto .seta { transform: rotate(180deg); }
-
-  /* ── Placar exibido no header do encerrado ── */
   .placar-enc {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    letter-spacing: 2px;
-    color: var(--amarelo);
-    background: rgba(244,196,0,0.1);
-    border: 1px solid rgba(244,196,0,0.35);
-    border-radius: 20px;
-    padding: 2px 10px;
-    margin-left: 8px;
-    white-space: nowrap;
+    font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2px; color: var(--amarelo);
+    background: rgba(244,196,0,0.1); border: 1px solid rgba(244,196,0,0.35);
+    border-radius: 20px; padding: 2px 10px; margin-left: 8px; white-space: nowrap;
   }
-
-  /* ── Corpo colapsável ── */
   .jogo-corpo { padding: 12px 16px; display: none; }
   .jogo-bloco.aberto .jogo-corpo { display: block; }
 
@@ -108,24 +100,33 @@
   .linha-palpite input::placeholder { color: #3d4a66; }
 
   /* ── Ações ── */
-  .acoes { text-align: center; margin: 28px 0 16px; }
+  .acoes { text-align: center; margin: 28px 0 16px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   button {
     background: var(--verde); border: none; color: #fff; font-weight: 700;
     font-size: 15px; padding: 14px 28px; border-radius: 26px; cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif; transition: filter 0.15s;
   }
   button:hover { filter: brightness(1.15); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
   button.sec { background: var(--card); border: 1px solid var(--borda); font-weight: 600; font-size: 13px; padding: 10px 20px; }
+  button.pub { background: var(--azul); }
 
   #saida { display: none; margin-top: 20px; }
   #saida textarea {
-    width: 100%; height: 220px; background: var(--fundo); color: var(--texto);
+    width: 100%; height: 180px; background: var(--fundo); color: var(--texto);
     border: 1px solid var(--borda); border-radius: 12px; padding: 12px;
     font-family: monospace; font-size: 12px; resize: vertical;
   }
-  .passos { font-size: 13px; color: var(--texto2); line-height: 1.8; margin-top: 12px; }
-  .passos a { color: var(--amarelo); }
-  .copiado { color: var(--verde); font-size: 13px; margin-left: 10px; }
+  .copiado { color: var(--verde); font-size: 13px; }
+
+  /* ── Status de publicação ── */
+  #pub-status {
+    margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+    font-size: 14px; font-weight: 600; display: none; text-align: center;
+  }
+  #pub-status.ok { background: rgba(0,166,81,0.15); border: 1px solid var(--verde); color: var(--verde); }
+  #pub-status.erro { background: rgba(220,0,50,0.12); border: 1px solid #e05; color: #f55; }
+  #pub-status.loading { background: rgba(255,255,255,0.05); border: 1px solid var(--borda); color: var(--texto2); }
 
   @media (max-width: 500px) {
     .linha-palpite { grid-template-columns: 1fr 52px 18px 52px; gap: 5px; }
@@ -142,29 +143,35 @@
 <div class="container">
 
   <div class="aviso">
-    <strong>Como funciona:</strong> preencha os palpites abaixo (deixe em branco quem não enviou),
-    clique em <strong>Gerar arquivo</strong>, copie o conteúdo e cole no GitHub substituindo o arquivo
-    <code>dados.js</code>. As duas páginas do bolão atualizam sozinhas em ~1 minuto.<br><br>
-    <strong>🏁 Resultado final:</strong> quando um jogo terminar, preencha também o resultado final dele —
-    isso "congela" a pontuação, pois a API da ESPN às vezes esquece placares de dias anteriores.
+    <strong>Como funciona:</strong> preencha os palpites e resultados abaixo, depois clique em
+    <strong>Publicar no GitHub</strong> — o site atualiza em ~1 minuto automaticamente.<br><br>
+    <strong>🏁 Resultado final:</strong> preencha o placar real do jogo para congelar a pontuação.
   </div>
+
+  <!-- Token config -->
+  <details class="token-box" id="token-details">
+    <summary>Configurar token do GitHub</summary>
+    <div class="token-inner">
+      <input type="password" id="token-input" placeholder="github_pat_..." autocomplete="off">
+      <button class="sec" onclick="salvarToken()">Salvar</button>
+    </div>
+    <div id="token-status" class="token-status"></div>
+  </details>
 
   <div id="formulario"></div>
 
   <div class="acoes">
-    <button onclick="gerar()">⚙️ Gerar arquivo dados.js</button>
+    <button onclick="publicar()" class="pub" id="btn-pub">🚀 Publicar</button>
+    <button class="sec" onclick="gerarEMostrar()">📄 Ver arquivo gerado</button>
   </div>
+
+  <div id="pub-status"></div>
 
   <div id="saida">
     <textarea id="conteudo" readonly></textarea>
     <div class="acoes" style="margin-top:12px">
-      <button class="sec" onclick="copiar()">📋 Copiar conteúdo</button><span id="ok-copia" class="copiado"></span>
-    </div>
-    <div class="passos">
-      <strong>Depois de copiar:</strong><br>
-      1. Abra o <a href="https://github.com/rafamoreira08/bolao-copa-2026/edit/main/dados.js" target="_blank">editor do dados.js no GitHub</a><br>
-      2. Selecione tudo (Cmd+A) e cole por cima (Cmd+V)<br>
-      3. Clique em <strong>Commit changes</strong> — pronto, no ar em ~1 minuto ⚽
+      <button class="sec" onclick="copiar()">📋 Copiar conteúdo</button>
+      <span id="ok-copia" class="copiado"></span>
     </div>
   </div>
 
@@ -172,27 +179,51 @@
 
 <script src="dados.js"></script>
 <script>
-// ----- monta o formulário -----
+// ── Token ──
+function salvarToken() {
+  const t = document.getElementById('token-input').value.trim();
+  if (!t.startsWith('github_pat_') && !t.startsWith('ghp_')) {
+    mostrarTokenStatus('Token inválido — deve começar com github_pat_ ou ghp_', true);
+    return;
+  }
+  localStorage.setItem('gh_token', t);
+  mostrarTokenStatus('✓ Token salvo!', false);
+  document.getElementById('token-details').removeAttribute('open');
+  setTimeout(() => mostrarTokenStatus('', false), 3000);
+}
+
+function mostrarTokenStatus(msg, erro) {
+  const el = document.getElementById('token-status');
+  el.textContent = msg;
+  el.className = 'token-status' + (erro ? ' erro' : '');
+}
+
+function getToken() { return localStorage.getItem('gh_token') || ''; }
+
+// Mostra indicador se token já salvo
+window.addEventListener('DOMContentLoaded', () => {
+  const t = getToken();
+  if (t) {
+    mostrarTokenStatus('✓ Token configurado', false);
+  } else {
+    document.getElementById('token-details').open = true;
+  }
+});
+
+// ── Monta formulário ──
 function montar() {
-  // Separa pendentes (sem manual) e encerrados (com manual), ambos em ordem cronológica
   const pendentes = [], passados = [];
   JOGOS.forEach((j, idx) => (j.manual ? passados : pendentes).push([j, idx]));
 
   let html = "";
-
-  // ── Jogos pendentes (sem resultado) ──
   pendentes.forEach(([j, idx]) => {
     const incompleto = !j.palpites || Object.keys(j.palpites).length < PARTICIPANTES.length;
-    const aberto = incompleto ? " aberto" : "";
-    html += blocoJogo(j, idx, false, aberto);
+    html += blocoJogo(j, idx, false, incompleto ? " aberto" : "");
   });
 
-  // ── Seção encerrados ──
   if (passados.length > 0) {
     html += `<div class="secao-titulo">✅ Jogos Encerrados <span>— toque para editar</span></div>`;
-    passados.forEach(([j, idx]) => {
-      html += blocoJogo(j, idx, true, "");   // colapsado por padrão
-    });
+    passados.forEach(([j, idx]) => { html += blocoJogo(j, idx, true, ""); });
   }
 
   document.getElementById("formulario").innerHTML = html;
@@ -200,13 +231,8 @@ function montar() {
 
 function blocoJogo(j, idx, encerrado, classeExtra) {
   const m = j.manual || ["", ""];
+  const placarBadge = encerrado ? `<span class="placar-enc">${m[0]} × ${m[1]}</span>` : "";
 
-  // Header: placar badge para encerrados
-  const placarBadge = encerrado
-    ? `<span class="placar-enc">${m[0]} × ${m[1]}</span>`
-    : "";
-
-  // Linha de resultado final
   let linhas = `<div class="linha-palpite" style="border-bottom:2px solid var(--borda)">
     <label style="color:var(--amarelo)">🏁 Resultado final</label>
     <input type="number" min="0" max="20" id="j${idx}-manual-c" value="${m[0]}" placeholder="–">
@@ -214,7 +240,6 @@ function blocoJogo(j, idx, encerrado, classeExtra) {
     <input type="number" min="0" max="20" id="j${idx}-manual-f" value="${m[1]}" placeholder="–">
   </div>`;
 
-  // Linhas de palpite por participante
   for (const p of PARTICIPANTES) {
     const v = j.palpites && j.palpites[p] ? j.palpites[p] : ["", ""];
     linhas += `<div class="linha-palpite">
@@ -237,7 +262,7 @@ function blocoJogo(j, idx, encerrado, classeExtra) {
   </div>`;
 }
 
-// ----- lê o formulário de volta para JOGOS -----
+// ── Lê formulário ──
 function lerFormulario() {
   JOGOS.forEach((j, idx) => {
     const palpites = {};
@@ -254,7 +279,7 @@ function lerFormulario() {
   });
 }
 
-// ----- serializa de volta para o formato do dados.js -----
+// ── Serializa dados.js ──
 function serializarJogo(j) {
   let s = "  {\n";
   s += `    dia: ${JSON.stringify(j.dia)}, hora: ${JSON.stringify(j.hora)}, grupo: ${JSON.stringify(j.grupo)},\n`;
@@ -273,7 +298,7 @@ function serializarJogo(j) {
   return s;
 }
 
-function gerar() {
+function gerarConteudo() {
   lerFormulario();
   let out = "// ============================================================\n";
   out += "// DADOS DO BOLÃO — gerado pela página de cadastro de palpites\n";
@@ -284,6 +309,11 @@ function gerar() {
   out += JOGOS.map(serializarJogo).join(",\n");
   out += "\n];\n\n";
   out += `const API_URL = ${JSON.stringify(API_URL)};\n`;
+  return out;
+}
+
+function gerarEMostrar() {
+  const out = gerarConteudo();
   document.getElementById("conteudo").value = out;
   document.getElementById("saida").style.display = "block";
   document.getElementById("saida").scrollIntoView({ behavior: "smooth" });
@@ -296,6 +326,83 @@ function copiar() {
     document.getElementById("ok-copia").textContent = "✓ copiado!";
     setTimeout(() => document.getElementById("ok-copia").textContent = "", 3000);
   });
+}
+
+// ── Publicar no GitHub ──
+async function publicar() {
+  const token = getToken();
+  if (!token) {
+    document.getElementById('token-details').open = true;
+    document.getElementById('token-input').focus();
+    mostrarStatus('Configure o token do GitHub primeiro ↑', 'erro');
+    return;
+  }
+
+  const btn = document.getElementById('btn-pub');
+  btn.disabled = true;
+  btn.textContent = '⏳ Publicando...';
+  mostrarStatus('Conectando ao GitHub...', 'loading');
+
+  try {
+    const conteudo = gerarConteudo();
+
+    // 1. Busca SHA atual do arquivo
+    const infoResp = await fetch(
+      'https://api.github.com/repos/rafamoreira08/bolao-copa-2026/contents/dados.js',
+      { headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github.v3+json' } }
+    );
+    if (!infoResp.ok) {
+      const err = await infoResp.json();
+      throw new Error(err.message || `Erro ${infoResp.status}`);
+    }
+    const info = await infoResp.json();
+
+    // 2. Conta mudanças para mensagem de commit
+    const manualNovos = (conteudo.match(/manual:/g) || []).length;
+    const msg = `Atualiza dados.js via palpites.html (${manualNovos} resultados)`;
+
+    // 3. Commit via API
+    const putResp = await fetch(
+      'https://api.github.com/repos/rafamoreira08/bolao-copa-2026/contents/dados.js',
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: msg,
+          content: btoa(unescape(encodeURIComponent(conteudo))),
+          sha: info.sha,
+          branch: 'main'
+        })
+      }
+    );
+
+    if (!putResp.ok) {
+      const err = await putResp.json();
+      throw new Error(err.message || `Erro ${putResp.status}`);
+    }
+
+    const resultado = await putResp.json();
+    const sha = resultado.commit.sha.substring(0, 7);
+    mostrarStatus(`✅ Publicado! Commit ${sha} — site atualiza em ~1 minuto`, 'ok');
+
+  } catch (e) {
+    mostrarStatus(`❌ Erro: ${e.message}`, 'erro');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Publicar';
+  }
+}
+
+function mostrarStatus(msg, tipo) {
+  const el = document.getElementById('pub-status');
+  el.textContent = msg;
+  el.className = tipo;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 montar();
