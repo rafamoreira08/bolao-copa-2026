@@ -235,7 +235,6 @@ const JOGOS = [
     casa: "🇺🇸 EUA", fora: "Austrália 🇦🇺",
     abbrCasa: "USA", abbrFora: "AUS",
     local: "📍 Seattle",
-    manual: [2, 0],
     palpites: { Rafa: [1,1], Xyko: [1,1], Teu: [3,1], Dani: [2,2], Soninha: [3,1], Lu: [2,0] }
   },
   {
@@ -243,7 +242,6 @@ const JOGOS = [
     casa: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia", fora: "Marrocos 🇲🇦",
     abbrCasa: "SCO", abbrFora: "MAR",
     local: "📍 Boston",
-    manual: [0, 1],
     palpites: { Rafa: [0,2], Xyko: [0,1], Teu: [0,2], Dani: [0,2], Soninha: [1,3], Lu: [1,1] }
   },
   {
@@ -252,7 +250,6 @@ const JOGOS = [
     abbrCasa: "BRA", abbrFora: "HAI",
     local: "📍 Filadélfia",
     brasil: true,
-    manual: [3, 0],
     palpites: { Rafa: [1,0], Xyko: [3,0], Teu: [4,1], Dani: [3,0], Soninha: [2,0], Lu: [4,0] }
   },
   {
@@ -260,7 +257,6 @@ const JOGOS = [
     casa: "🇹🇷 Turquia", fora: "Paraguai 🇵🇾",
     abbrCasa: "TUR", abbrFora: "PAR",
     local: "📍 Santa Clara",
-    manual: [0, 1],
     palpites: { Rafa: [1,1], Xyko: [1,1], Teu: [2,1], Dani: [1,2], Soninha: [0,2], Lu: [2,1] }
   },
   {
@@ -296,28 +292,28 @@ const JOGOS = [
     casa: "🇪🇸 Espanha", fora: "Arábia Saudita 🇸🇦",
     abbrCasa: "ESP", abbrFora: "KSA",
     local: "📍 Atlanta",
-    palpites: {}
+    palpites: { Rafa: [4,1] }
   },
   {
     dia: "Domingo, 21 de junho", hora: "16h00", grupo: "G",
     casa: "🇧🇪 Bélgica", fora: "Irã 🇮🇷",
     abbrCasa: "BEL", abbrFora: "IRN",
     local: "📍 Los Angeles",
-    palpites: {}
+    palpites: { Rafa: [3,1] }
   },
   {
     dia: "Domingo, 21 de junho", hora: "19h00", grupo: "H",
     casa: "🇺🇾 Uruguai", fora: "Cabo Verde 🇨🇻",
     abbrCasa: "URU", abbrFora: "CPV",
     local: "📍 Miami",
-    palpites: {}
+    palpites: { Rafa: [3,0] }
   },
   {
     dia: "Domingo, 21 de junho", hora: "22h00", grupo: "G",
     casa: "🇳🇿 Nova Zelândia", fora: "Egito 🇪🇬",
     abbrCasa: "NZL", abbrFora: "EGY",
     local: "📍 Vancouver",
-    palpites: {}
+    palpites: { Rafa: [1,2] }
   },
   {
     dia: "Segunda-feira, 22 de junho", hora: "14h00", grupo: "J",
