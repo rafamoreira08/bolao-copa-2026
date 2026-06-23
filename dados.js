@@ -340,6 +340,7 @@ const JOGOS = [
     casa: "🇫🇷 França", fora: "Iraque 🇮🇶",
     abbrCasa: "FRA", abbrFora: "IRQ",
     local: "📍 Filadélfia",
+    manual: [3, 0],
     palpites: { Rafa: [4,0], Xyko: [3,0], Teu: [2,0], Dani: [3,0], Soninha: [4,0], Lu: [3,0] }
   },
   {
@@ -347,6 +348,7 @@ const JOGOS = [
     casa: "🇳🇴 Noruega", fora: "Senegal 🇸🇳",
     abbrCasa: "NOR", abbrFora: "SEN",
     local: "📍 Nova York / NJ",
+    manual: [3, 2],
     palpites: { Rafa: [1,1], Xyko: [3,1], Teu: [2,1], Dani: [2,2], Soninha: [2,1], Lu: [2,1] }
   },
   {
