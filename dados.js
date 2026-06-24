@@ -395,21 +395,21 @@ const JOGOS = [
     casa: "🇧🇦 Bósnia", fora: "Catar 🇶🇦",
     abbrCasa: "BIH", abbrFora: "QAT",
     local: "📍 Seattle",
-    palpites: {}
+    palpites: { Rafa: [2,0], Soninha: [2,1], Teu: [1,0], Xyko: [2,0] }
   },
   {
     dia: "Quarta-feira, 24 de junho", hora: "16h00", grupo: "B",
     casa: "🇨🇭 Suíça", fora: "Canadá 🇨🇦",
     abbrCasa: "SUI", abbrFora: "CAN",
     local: "📍 Vancouver",
-    palpites: {}
+    palpites: { Rafa: [2,0], Soninha: [3,2], Teu: [2,1], Xyko: [2,1] }
   },
   {
     dia: "Quarta-feira, 24 de junho", hora: "19h00", grupo: "C",
     casa: "🇲🇦 Marrocos", fora: "Haiti 🇭🇹",
     abbrCasa: "MAR", abbrFora: "HAI",
     local: "📍 Atlanta",
-    palpites: {}
+    palpites: { Rafa: [4,0], Soninha: [3,0], Teu: [3,0], Xyko: [2,0] }
   },
   {
     dia: "Quarta-feira, 24 de junho", hora: "19h00", grupo: "C",
@@ -417,21 +417,21 @@ const JOGOS = [
     abbrCasa: "SCO", abbrFora: "BRA",
     local: "📍 Miami",
     brasil: true,
-    palpites: {}
+    palpites: { Rafa: [1,2], Soninha: [2,3], Teu: [0,2], Xyko: [1,2] }
   },
   {
     dia: "Quarta-feira, 24 de junho", hora: "22h00", grupo: "A",
     casa: "🇨🇿 Tchéquia", fora: "México 🇲🇽",
     abbrCasa: "CZE", abbrFora: "MEX",
     local: "📍 Cidade do México",
-    palpites: {}
+    palpites: { Rafa: [1,1], Soninha: [0,3], Teu: [1,1], Xyko: [0,1] }
   },
   {
     dia: "Quarta-feira, 24 de junho", hora: "22h00", grupo: "A",
     casa: "🇿🇦 África do Sul", fora: "Coreia do Sul 🇰🇷",
     abbrCasa: "RSA", abbrFora: "KOR",
     local: "📍 Monterrey",
-    palpites: {}
+    palpites: { Rafa: [0,2], Soninha: [0,1], Teu: [0,2], Xyko: [1,2] }
   },
   {
     dia: "Quinta-feira, 25 de junho", hora: "17h00", grupo: "E",
