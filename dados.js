@@ -493,42 +493,42 @@ const JOGOS = [
     casa: "🇳🇴 Noruega", fora: "França 🇫🇷",
     abbrCasa: "NOR", abbrFora: "FRA",
     local: "📍 Boston",
-    palpites: { Rafa: [1,1], Soninha: [2,2], Teu: [0,0], Xyko: [1,1] , Dani: [0,2]}
+    palpites: { Rafa: [1,1], Xyko: [1,1], Teu: [0,0], Dani: [0,2], Soninha: [2,2], Lu: [1,2] }
   },
   {
     dia: "Sexta-feira, 26 de junho", hora: "16h00", grupo: "I",
     casa: "🇸🇳 Senegal", fora: "Iraque 🇮🇶",
     abbrCasa: "SEN", abbrFora: "IRQ",
     local: "📍 Toronto",
-    palpites: { Rafa: [3,0], Soninha: [2,1], Teu: [1,0], Xyko: [1,0] , Dani: [1,1]}
+    palpites: { Rafa: [3,0], Xyko: [1,0], Teu: [1,0], Dani: [1,1], Soninha: [2,1], Lu: [2,0] }
   },
   {
     dia: "Sexta-feira, 26 de junho", hora: "21h00", grupo: "H",
     casa: "🇨🇻 Cabo Verde", fora: "Arábia Saudita 🇸🇦",
     abbrCasa: "CPV", abbrFora: "KSA",
     local: "📍 Houston",
-    palpites: { Rafa: [1,0], Soninha: [1,0], Teu: [0,0], Xyko: [1,0] , Dani: [1,0]}
+    palpites: { Rafa: [1,0], Xyko: [1,0], Teu: [0,0], Dani: [1,0], Soninha: [1,0], Lu: [1,1] }
   },
   {
     dia: "Sexta-feira, 26 de junho", hora: "21h00", grupo: "H",
     casa: "🇺🇾 Uruguai", fora: "Espanha 🇪🇸",
     abbrCasa: "URU", abbrFora: "ESP",
     local: "📍 Guadalajara",
-    palpites: { Rafa: [2,1], Soninha: [1,2], Teu: [1,2], Xyko: [1,2] , Dani: [0,2]}
+    palpites: { Rafa: [2,1], Xyko: [1,2], Teu: [1,2], Dani: [0,2], Soninha: [1,2], Lu: [1,2] }
   },
   {
     dia: "Sábado, 27 de junho", hora: "00h00", grupo: "G",
     casa: "🇪🇬 Egito", fora: "Irã 🇮🇷",
     abbrCasa: "EGY", abbrFora: "IRN",
     local: "📍 Seattle",
-    palpites: { Rafa: [3,1], Soninha: [2,0], Teu: [1,0], Xyko: [0,1] , Dani: [2,2]}
+    palpites: { Rafa: [3,1], Xyko: [0,1], Teu: [1,0], Dani: [2,2], Soninha: [2,0], Lu: [1,1] }
   },
   {
     dia: "Sábado, 27 de junho", hora: "00h00", grupo: "G",
     casa: "🇳🇿 Nova Zelândia", fora: "Bélgica 🇧🇪",
     abbrCasa: "NZL", abbrFora: "BEL",
     local: "📍 Vancouver",
-    palpites: { Rafa: [0,5], Soninha: [0,3], Teu: [0,2], Xyko: [0,1] , Dani: [0,1]}
+    palpites: { Rafa: [0,5], Xyko: [0,1], Teu: [0,2], Dani: [0,1], Soninha: [0,3], Lu: [0,2] }
   },
   {
     dia: "Sábado, 27 de junho", hora: "18h00", grupo: "L",
