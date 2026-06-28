@@ -541,6 +541,7 @@ const JOGOS = [
     casa: "🇭🇷 Croácia", fora: "Gana 🇬🇭",
     abbrCasa: "CRO", abbrFora: "GHA",
     local: "📍 Filadélfia",
+    manual: [2, 1],
     palpites: { Rafa: [2,1], Xyko: [0,1], Teu: [0,0], Dani: [2,0], Soninha: [2,1], Lu: [2,1] }
   },
   {
@@ -548,6 +549,7 @@ const JOGOS = [
     casa: "🇵🇦 Panamá", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     abbrCasa: "PAN", abbrFora: "ENG",
     local: "📍 Nova York / NJ",
+    manual: [0, 2],
     palpites: { Rafa: [0,1], Xyko: [1,3], Teu: [0,4], Dani: [1,3], Soninha: [0,3], Lu: [0,2] }
   },
   {
@@ -555,6 +557,7 @@ const JOGOS = [
     casa: "🇨🇴 Colômbia", fora: "Portugal 🇵🇹",
     abbrCasa: "COL", abbrFora: "POR",
     local: "📍 Miami",
+    manual: [0, 0],
     palpites: { Rafa: [0,1], Xyko: [1,3], Teu: [1,2], Dani: [2,2], Soninha: [2,2], Lu: [1,1] }
   },
   {
@@ -562,6 +565,7 @@ const JOGOS = [
     casa: "🇨🇩 Congo", fora: "Uzbequistão 🇺🇿",
     abbrCasa: "COD", abbrFora: "UZB",
     local: "📍 Atlanta",
+    manual: [3, 1],
     palpites: { Rafa: [1,0], Xyko: [1,1], Teu: [0,0], Dani: [1,1], Soninha: [0,1], Lu: [1,0] }
   },
   {
@@ -569,13 +573,15 @@ const JOGOS = [
     casa: "🇩🇿 Argélia", fora: "Áustria 🇦🇹",
     abbrCasa: "ALG", abbrFora: "AUT",
     local: "📍 Kansas City",
-    palpites: { Rafa: [1,0], Xyko: [1,0], Teu: [1,0], Dani: [0,0], Soninha: [0,1], Lu: [1,1] }
+    manual: [3, 3],
+    palpites: { Rafa: [1,0], Xyko: [1,0], Teu: [0,0], Dani: [0,0], Soninha: [0,1], Lu: [1,1] }
   },
   {
     dia: "Sábado, 27 de junho", hora: "23h00", grupo: "J",
     casa: "🇯🇴 Jordânia", fora: "Argentina 🇦🇷",
     abbrCasa: "JOR", abbrFora: "ARG",
     local: "📍 Dallas",
+    manual: [1, 3],
     palpites: { Rafa: [0,4], Xyko: [1,3], Teu: [0,2], Dani: [0,3], Soninha: [0,2], Lu: [0,3] }
   }
 ];
