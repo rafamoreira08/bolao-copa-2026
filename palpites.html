@@ -192,7 +192,7 @@ function montar(){
     html+=`<div class="secao-titulo proximos">📅 Próximos Jogos <span>— ainda sem palpites</span></div>`;
     proximos.forEach(([j,idx])=>{html+=blocoJogo(j,idx,'proximo','');});
   }
-  html+=`<div style="text-align:center;margin:24px 0 8px"><button class="buscar" onclick="buscarProximos()">📅 Buscar próximos jogos</button></div>`;
+  html+=`<div style="text-align:center;margin:24px 0 8px"><button class="buscar" onclick="buscarProximos(this)">📅 Buscar próximos jogos</button></div>`;
   if(passados.length>0){
     html+=`<div class="secao-titulo">✅ Jogos Encerrados <span>— toque para editar</span></div>`;
     passados.forEach(([j,idx])=>{html+=blocoJogo(j,idx,'encerrado','');});
@@ -231,14 +231,98 @@ function blocoJogo(j,idx,tipo,classeExtra){
   </div>`;
 }
 
-function buscarProximos(){
+async function buscarProximos(btn){
+  if(btn){btn.disabled=true;btn.textContent='⏳ Buscando...';}
+  // Primeiro: tenta PROXIMOS_JOGOS (fase de grupos)
   const existentes=new Set(JOGOS.map(j=>j.abbrCasa+j.abbrFora));
-  const novos=PROXIMOS_JOGOS.filter(j=>!existentes.has(j.abbrCasa+j.abbrFora));
-  if(novos.length===0){mostrarStatus('Todos os jogos já estão cadastrados!','ok');return;}
-  novos.forEach(j=>JOGOS.push({...j,palpites:{}}));
-  montar();
-  mostrarStatus(`✅ ${novos.length} jogo${novos.length>1?'s':''} adicionado${novos.length>1?'s':''}! Clique em Publicar para salvar.`,'ok');
+  const doLocal=PROXIMOS_JOGOS.filter(j=>!existentes.has(j.abbrCasa+j.abbrFora));
+  if(doLocal.length>0){
+    doLocal.forEach(j=>JOGOS.push({...j,palpites:{}}));
+    montar();
+    mostrarStatus(`✅ ${doLocal.length} jogo${doLocal.length>1?'s':''} adicionado${doLocal.length>1?'s':''}! Clique em Publicar.`,'ok');
+    if(btn){btn.disabled=false;btn.textContent='📅 Buscar próximos jogos';}
+    return;
+  }
+  // Fase eliminatória: busca ao vivo na API
+  try{
+    mostrarStatus('Buscando mata-mata na API...','loading');
+    const resp=await fetch('https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260628-20260719&limit=100');
+    const data=await resp.json();
+    const novos=[];
+    for(const e of data.events){
+      const comp=e.competitions[0];
+      const home=comp.competitors.find(t=>t.homeAway==='home');
+      const away=comp.competitors.find(t=>t.homeAway==='away');
+      const ha=home.team.abbreviation, aa=away.team.abbreviation;
+      if(/^\d/.test(ha)||/^\d/.test(aa))continue; // placeholder
+      if(existentes.has(ha+aa))continue;
+      const j=espnParaJogo(e,home,away,comp);
+      if(j){novos.push(j);existentes.add(ha+aa);}
+    }
+    if(novos.length===0){
+      mostrarStatus('API ainda com placeholders. Tente novamente em alguns minutos.','loading');
+    }else{
+      novos.forEach(j=>JOGOS.push(j));
+      montar();
+      mostrarStatus(`✅ ${novos.length} jogo${novos.length>1?'s':''} do mata-mata adicionado${novos.length>1?'s':''}! Clique em Publicar.`,'ok');
+    }
+  }catch(err){mostrarStatus(`❌ Erro: ${err.message}`,'erro');}
+  finally{if(btn){btn.disabled=false;btn.textContent='📅 Buscar próximos jogos';}}
 }
+
+// Converte evento ESPN → objeto jogo
+const TIMES={
+  MEX:{pt:'México',f:'🇲🇽'},RSA:{pt:'África do Sul',f:'🇿🇦'},KOR:{pt:'Coreia do Sul',f:'🇰🇷'},CZE:{pt:'Tchéquia',f:'🇨🇿'},
+  CAN:{pt:'Canadá',f:'🇨🇦'},BIH:{pt:'Bósnia',f:'🇧🇦'},QAT:{pt:'Catar',f:'🇶🇦'},SUI:{pt:'Suíça',f:'🇨🇭'},
+  BRA:{pt:'Brasil',f:'🇧🇷'},MAR:{pt:'Marrocos',f:'🇲🇦'},HAI:{pt:'Haiti',f:'🇭🇹'},SCO:{pt:'Escócia',f:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'},
+  USA:{pt:'EUA',f:'🇺🇸'},PAR:{pt:'Paraguai',f:'🇵🇾'},AUS:{pt:'Austrália',f:'🇦🇺'},TUR:{pt:'Turquia',f:'🇹🇷'},
+  GER:{pt:'Alemanha',f:'🇩🇪'},CUW:{pt:'Curaçao',f:'🇨🇼'},CIV:{pt:'C. do Marfim',f:'🇨🇮'},ECU:{pt:'Equador',f:'🇪🇨'},
+  NED:{pt:'Holanda',f:'🇳🇱'},JPN:{pt:'Japão',f:'🇯🇵'},SWE:{pt:'Suécia',f:'🇸🇪'},TUN:{pt:'Tunísia',f:'🇹🇳'},
+  BEL:{pt:'Bélgica',f:'🇧🇪'},EGY:{pt:'Egito',f:'🇪🇬'},IRN:{pt:'Irã',f:'🇮🇷'},NZL:{pt:'Nova Zelândia',f:'🇳🇿'},
+  ESP:{pt:'Espanha',f:'🇪🇸'},CPV:{pt:'Cabo Verde',f:'🇨🇻'},KSA:{pt:'Arábia Saudita',f:'🇸🇦'},URU:{pt:'Uruguai',f:'🇺🇾'},
+  FRA:{pt:'França',f:'🇫🇷'},SEN:{pt:'Senegal',f:'🇸🇳'},IRQ:{pt:'Iraque',f:'🇮🇶'},NOR:{pt:'Noruega',f:'🇳🇴'},
+  ARG:{pt:'Argentina',f:'🇦🇷'},ALG:{pt:'Argélia',f:'🇩🇿'},AUT:{pt:'Áustria',f:'🇦🇹'},JOR:{pt:'Jordânia',f:'🇯🇴'},
+  POR:{pt:'Portugal',f:'🇵🇹'},COD:{pt:'Congo',f:'🇨🇩'},COL:{pt:'Colômbia',f:'🇨🇴'},UZB:{pt:'Uzbequistão',f:'🇺🇿'},
+  ENG:{pt:'Inglaterra',f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},CRO:{pt:'Croácia',f:'🇭🇷'},GHA:{pt:'Gana',f:'🇬🇭'},PAN:{pt:'Panamá',f:'🇵🇦'},
+};
+const CIDADES={
+  'Inglewood':'📍 Los Angeles','East Rutherford':'📍 Nova York / NJ','Foxborough':'📍 Boston',
+  'Arlington':'📍 Dallas','Dallas':'📍 Dallas','Houston':'📍 Houston','Atlanta':'📍 Atlanta',
+  'Seattle':'📍 Seattle','Philadelphia':'📍 Filadélfia','Santa Clara':'📍 Santa Clara',
+  'Vancouver':'📍 Vancouver','Toronto':'📍 Toronto','Miami':'📍 Miami','Kansas City':'📍 Kansas City',
+  'Guadalajara':'📍 Guadalajara','Guadalupe':'📍 Monterrey','Mexico City':'📍 Cidade do México',
+  'Monterrey':'📍 Monterrey','San Francisco':'📍 San Francisco',
+};
+const FASES={'round-of-32':'R32','round-of-16':'R16','quarterfinals':'QF','semifinals':'SF','3rd-place-match':'3º','final':'Final'};
+function traduzLocal(city){
+  for(const[k,v]of Object.entries(CIDADES)){if(city.includes(k))return v;}
+  return '📍 '+city.split(',')[0];
+}
+function utcParaBRT(iso){
+  const d=new Date(iso);
+  d.setTime(d.getTime()-3*3600000);
+  const dias=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+  const meses=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const h=String(d.getUTCHours()).padStart(2,'0'),m=String(d.getUTCMinutes()).padStart(2,'0');
+  return{dia:`${dias[d.getUTCDay()]}, ${d.getUTCDate()} de ${meses[d.getUTCMonth()]}`,hora:`${h}h${m}`};
+}
+function espnParaJogo(e,home,away,comp){
+  const ha=home.team.abbreviation,aa=away.team.abbreviation;
+  const th=TIMES[ha],ta=TIMES[aa];
+  if(!th||!ta)return null;
+  const {dia,hora}=utcParaBRT(e.date);
+  const city=comp.venue?.address?.city||'?';
+  const fase=FASES[e.season?.slug]||e.season?.slug||'?';
+  return{
+    dia,hora,grupo:fase,
+    casa:`${th.f} ${th.pt}`,fora:`${ta.pt} ${ta.f}`,
+    abbrCasa:ha,abbrFora:aa,
+    local:traduzLocal(city),
+    ...(ha==='BRA'||aa==='BRA'?{brasil:true}:{}),
+    palpites:{}
+  };
+}
+
 
 function lerFormulario(){
   JOGOS.forEach((j,idx)=>{
