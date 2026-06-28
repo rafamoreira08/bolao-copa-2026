@@ -583,6 +583,119 @@ const JOGOS = [
     local: "📍 Dallas",
     manual: [1, 3],
     palpites: { Rafa: [0,4], Xyko: [1,3], Teu: [0,2], Dani: [0,3], Soninha: [0,2], Lu: [0,3] }
+  },
+  {
+    dia: "Domingo, 28 de junho", hora: "16h00", grupo: "R32",
+    casa: "🇿🇦 África do Sul", fora: "Canadá 🇨🇦",
+    abbrCasa: "RSA", abbrFora: "CAN",
+    local: "📍 Los Angeles",
+    palpites: { Rafa: [1,2], Xyko: [1,2], Teu: [0,1], Dani: [0,1], Soninha: [2,3], Lu: [2,1] }
+  },
+  {
+    dia: "Segunda-feira, 29 de junho", hora: "14h00", grupo: "R32",
+    casa: "🇧🇷 Brasil", fora: "Japão 🇯🇵",
+    abbrCasa: "BRA", abbrFora: "JPN",
+    local: "📍 Houston",
+    brasil: true,
+    palpites: {}
+  },
+  {
+    dia: "Segunda-feira, 29 de junho", hora: "17h30", grupo: "R32",
+    casa: "🇩🇪 Alemanha", fora: "Paraguai 🇵🇾",
+    abbrCasa: "GER", abbrFora: "PAR",
+    local: "📍 Boston",
+    palpites: {}
+  },
+  {
+    dia: "Segunda-feira, 29 de junho", hora: "22h00", grupo: "R32",
+    casa: "🇳🇱 Holanda", fora: "Marrocos 🇲🇦",
+    abbrCasa: "NED", abbrFora: "MAR",
+    local: "📍 Monterrey",
+    palpites: {}
+  },
+  {
+    dia: "Terça-feira, 30 de junho", hora: "14h00", grupo: "R32",
+    casa: "🇨🇮 C. do Marfim", fora: "Noruega 🇳🇴",
+    abbrCasa: "CIV", abbrFora: "NOR",
+    local: "📍 Dallas",
+    palpites: {}
+  },
+  {
+    dia: "Terça-feira, 30 de junho", hora: "18h00", grupo: "R32",
+    casa: "🇫🇷 França", fora: "Suécia 🇸🇪",
+    abbrCasa: "FRA", abbrFora: "SWE",
+    local: "📍 Nova York / NJ",
+    palpites: {}
+  },
+  {
+    dia: "Terça-feira, 30 de junho", hora: "22h00", grupo: "R32",
+    casa: "🇲🇽 México", fora: "Equador 🇪🇨",
+    abbrCasa: "MEX", abbrFora: "ECU",
+    local: "📍 Cidade do México",
+    palpites: {}
+  },
+  {
+    dia: "Quarta-feira, 1 de julho", hora: "13h00", grupo: "R32",
+    casa: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra", fora: "Congo 🇨🇩",
+    abbrCasa: "ENG", abbrFora: "COD",
+    local: "📍 Atlanta",
+    palpites: {}
+  },
+  {
+    dia: "Quarta-feira, 1 de julho", hora: "17h00", grupo: "R32",
+    casa: "🇧🇪 Bélgica", fora: "Senegal 🇸🇳",
+    abbrCasa: "BEL", abbrFora: "SEN",
+    local: "📍 Seattle",
+    palpites: {}
+  },
+  {
+    dia: "Quarta-feira, 1 de julho", hora: "21h00", grupo: "R32",
+    casa: "🇺🇸 EUA", fora: "Bósnia 🇧🇦",
+    abbrCasa: "USA", abbrFora: "BIH",
+    local: "📍 Santa Clara",
+    palpites: {}
+  },
+  {
+    dia: "Quinta-feira, 2 de julho", hora: "16h00", grupo: "R32",
+    casa: "🇪🇸 Espanha", fora: "Áustria 🇦🇹",
+    abbrCasa: "ESP", abbrFora: "AUT",
+    local: "📍 Los Angeles",
+    palpites: {}
+  },
+  {
+    dia: "Quinta-feira, 2 de julho", hora: "20h00", grupo: "R32",
+    casa: "🇵🇹 Portugal", fora: "Croácia 🇭🇷",
+    abbrCasa: "POR", abbrFora: "CRO",
+    local: "📍 Toronto",
+    palpites: {}
+  },
+  {
+    dia: "Sexta-feira, 3 de julho", hora: "00h00", grupo: "R32",
+    casa: "🇨🇭 Suíça", fora: "Argélia 🇩🇿",
+    abbrCasa: "SUI", abbrFora: "ALG",
+    local: "📍 Vancouver",
+    palpites: {}
+  },
+  {
+    dia: "Sexta-feira, 3 de julho", hora: "15h00", grupo: "R32",
+    casa: "🇦🇺 Austrália", fora: "Egito 🇪🇬",
+    abbrCasa: "AUS", abbrFora: "EGY",
+    local: "📍 Dallas",
+    palpites: {}
+  },
+  {
+    dia: "Sexta-feira, 3 de julho", hora: "19h00", grupo: "R32",
+    casa: "🇦🇷 Argentina", fora: "Cabo Verde 🇨🇻",
+    abbrCasa: "ARG", abbrFora: "CPV",
+    local: "📍 Miami",
+    palpites: {}
+  },
+  {
+    dia: "Sexta-feira, 3 de julho", hora: "22h30", grupo: "R32",
+    casa: "🇨🇴 Colômbia", fora: "Gana 🇬🇭",
+    abbrCasa: "COL", abbrFora: "GHA",
+    local: "📍 Kansas City",
+    palpites: {}
   }
 ];
 
