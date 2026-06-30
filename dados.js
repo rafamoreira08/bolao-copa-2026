@@ -598,28 +598,31 @@ const JOGOS = [
     abbrCasa: "BRA", abbrFora: "JPN",
     local: "📍 Houston",
     brasil: true,
-    palpites: { Rafa: [3,2], Teu: [3,1], Dani: [2,0], Soninha: [2,1], Xyko: [2,1], Lu: [2,1] }
+    manual: [2, 1],
+    palpites: { Rafa: [3,2], Xyko: [2,1], Teu: [3,1], Dani: [2,0], Soninha: [2,1], Lu: [2,1] }
   },
   {
     dia: "Segunda-feira, 29 de junho", hora: "17h30", grupo: "R32",
     casa: "🇩🇪 Alemanha", fora: "Paraguai 🇵🇾",
     abbrCasa: "GER", abbrFora: "PAR",
     local: "📍 Boston",
-    palpites: { Rafa: [3,1], Teu: [2,0], Dani: [3,0], Soninha: [2,0], Xyko: [3,1], Lu: [2,0] }
+    manual: [1, 1],
+    palpites: { Rafa: [3,1], Xyko: [3,1], Teu: [2,0], Dani: [3,0], Soninha: [2,0], Lu: [2,0] }
   },
   {
     dia: "Segunda-feira, 29 de junho", hora: "22h00", grupo: "R32",
     casa: "🇳🇱 Holanda", fora: "Marrocos 🇲🇦",
     abbrCasa: "NED", abbrFora: "MAR",
     local: "📍 Monterrey",
-    palpites: { Rafa: [1,0], Teu: [2,2], Dani: [2,1], Soninha: [3,1], Xyko: [3,1], Lu: [0,0] }
+    manual: [1, 1],
+    palpites: { Rafa: [1,0], Xyko: [3,1], Teu: [2,2], Dani: [2,1], Soninha: [3,1], Lu: [0,0] }
   },
   {
     dia: "Terça-feira, 30 de junho", hora: "14h00", grupo: "R32",
     casa: "🇨🇮 C. do Marfim", fora: "Noruega 🇳🇴",
     abbrCasa: "CIV", abbrFora: "NOR",
     local: "📍 Dallas",
-    palpites: {}
+    palpites: { Rafa: [1,3], Xyko: [1,2], Teu: [0,1], Dani: [1,2], Soninha: [0,2], Lu: [1,2] }
   },
   {
     dia: "Terça-feira, 30 de junho", hora: "18h00", grupo: "R32",
