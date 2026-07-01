@@ -645,21 +645,21 @@ const JOGOS = [
     casa: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra", fora: "Congo 🇨🇩",
     abbrCasa: "ENG", abbrFora: "COD",
     local: "📍 Atlanta",
-    palpites: {}
+    palpites: { Rafa: [1,0], Xyko: [2,0], Teu: [2,1], Dani: [1,0], Soninha: [3,0] }
   },
   {
     dia: "Quarta-feira, 1 de julho", hora: "17h00", grupo: "R32",
     casa: "🇧🇪 Bélgica", fora: "Senegal 🇸🇳",
     abbrCasa: "BEL", abbrFora: "SEN",
     local: "📍 Seattle",
-    palpites: {}
+    palpites: { Rafa: [1,2], Xyko: [2,1], Teu: [1,1], Dani: [1,1], Soninha: [0,0] }
   },
   {
     dia: "Quarta-feira, 1 de julho", hora: "21h00", grupo: "R32",
     casa: "🇺🇸 EUA", fora: "Bósnia 🇧🇦",
     abbrCasa: "USA", abbrFora: "BIH",
     local: "📍 Santa Clara",
-    palpites: {}
+    palpites: { Rafa: [1,1], Xyko: [1,0], Teu: [2,0], Dani: [3,0], Soninha: [3,1] }
   },
   {
     dia: "Quinta-feira, 2 de julho", hora: "16h00", grupo: "R32",
