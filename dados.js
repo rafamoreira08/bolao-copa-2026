@@ -694,21 +694,64 @@ const JOGOS = [
     casa: "🇦🇺 Austrália", fora: "Egito 🇪🇬",
     abbrCasa: "AUS", abbrFora: "EGY",
     local: "📍 Dallas",
-    palpites: {Rafa: [1,3], Dani: [2,1], Xyko: [1,0], Soninha: [2,0], Teu: [0,1]}
+    palpites: { Rafa: [1,3], Xyko: [1,0], Teu: [0,1], Dani: [2,1], Soninha: [2,0] }
   },
   {
     dia: "Sexta-feira, 3 de julho", hora: "19h00", grupo: "R32",
     casa: "🇦🇷 Argentina", fora: "Cabo Verde 🇨🇻",
     abbrCasa: "ARG", abbrFora: "CPV",
     local: "📍 Miami",
-    palpites: {Rafa: [0,0], Dani: [0,0], Xyko: [3,0], Soninha: [2,2], Teu: [6,0]}
+    palpites: { Rafa: [0,0], Xyko: [3,0], Teu: [6,0], Dani: [0,0], Soninha: [2,2] }
   },
   {
     dia: "Sexta-feira, 3 de julho", hora: "22h30", grupo: "R32",
     casa: "🇨🇴 Colômbia", fora: "Gana 🇬🇭",
     abbrCasa: "COL", abbrFora: "GHA",
     local: "📍 Kansas City",
-    palpites: {Rafa: [2,1], Dani: [1,0], Xyko: [2,1], Soninha: [3,1], Teu: [2,1]}
+    palpites: { Rafa: [2,1], Xyko: [2,1], Teu: [2,1], Dani: [1,0], Soninha: [3,1] }
+  },
+  {
+    dia: "Sábado, 4 de julho", hora: "14h00", grupo: "R16",
+    casa: "🇨🇦 Canadá", fora: "Marrocos 🇲🇦",
+    abbrCasa: "CAN", abbrFora: "MAR",
+    local: "📍 Houston",
+    palpites: {}
+  },
+  {
+    dia: "Sábado, 4 de julho", hora: "18h00", grupo: "R16",
+    casa: "🇵🇾 Paraguai", fora: "França 🇫🇷",
+    abbrCasa: "PAR", abbrFora: "FRA",
+    local: "📍 Filadélfia",
+    palpites: {}
+  },
+  {
+    dia: "Domingo, 5 de julho", hora: "17h00", grupo: "R16",
+    casa: "🇧🇷 Brasil", fora: "Noruega 🇳🇴",
+    abbrCasa: "BRA", abbrFora: "NOR",
+    local: "📍 Nova York / NJ",
+    brasil: true,
+    palpites: {}
+  },
+  {
+    dia: "Domingo, 5 de julho", hora: "21h00", grupo: "R16",
+    casa: "🇲🇽 México", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    abbrCasa: "MEX", abbrFora: "ENG",
+    local: "📍 Cidade do México",
+    palpites: {}
+  },
+  {
+    dia: "Segunda-feira, 6 de julho", hora: "16h00", grupo: "R16",
+    casa: "🇵🇹 Portugal", fora: "Espanha 🇪🇸",
+    abbrCasa: "POR", abbrFora: "ESP",
+    local: "📍 Dallas",
+    palpites: {}
+  },
+  {
+    dia: "Segunda-feira, 6 de julho", hora: "21h00", grupo: "R16",
+    casa: "🇺🇸 EUA", fora: "Bélgica 🇧🇪",
+    abbrCasa: "USA", abbrFora: "BEL",
+    local: "📍 Seattle",
+    palpites: {}
   }
 ];
 
