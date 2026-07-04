@@ -755,6 +755,20 @@ const JOGOS = [
     abbrCasa: "USA", abbrFora: "BEL",
     local: "📍 Seattle",
     palpites: {}
+  },
+  {
+    dia: "Terça-feira, 7 de julho", hora: "13h00", grupo: "R16",
+    casa: "🇦🇷 Argentina", fora: "Egito 🇪🇬",
+    abbrCasa: "ARG", abbrFora: "EGY",
+    local: "📍 Atlanta",
+    palpites: {}
+  },
+  {
+    dia: "Terça-feira, 7 de julho", hora: "17h00", grupo: "R16",
+    casa: "🇨🇭 Suíça", fora: "Colômbia 🇨🇴",
+    abbrCasa: "SUI", abbrFora: "COL",
+    local: "📍 Vancouver",
+    palpites: {}
   }
 ];
 
