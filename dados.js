@@ -770,6 +770,13 @@ const JOGOS = [
     abbrCasa: "SUI", abbrFora: "COL",
     local: "📍 Vancouver",
     palpites: {}
+  },
+  {
+    dia: "Quinta-feira, 9 de julho", hora: "17h00", grupo: "QF",
+    casa: "🇫🇷 França", fora: "Marrocos 🇲🇦",
+    abbrCasa: "FRA", abbrFora: "MAR",
+    local: "📍 Boston",
+    palpites: {}
   }
 ];
 
