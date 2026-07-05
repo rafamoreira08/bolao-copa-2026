@@ -735,7 +735,7 @@ const JOGOS = [
     abbrCasa: "BRA", abbrFora: "NOR",
     local: "📍 Nova York / NJ",
     brasil: true,
-    manual: [0, 2],
+    manual: [1, 2],
     palpites: { Rafa: [3,1], Xyko: [2,1], Teu: [3,1], Dani: [2,0], Soninha: [3,2], Lu: [3,1] }
   },
   {
