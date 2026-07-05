@@ -734,14 +734,14 @@ const JOGOS = [
     abbrCasa: "BRA", abbrFora: "NOR",
     local: "📍 Nova York / NJ",
     brasil: true,
-    palpites: {}
+    palpites: {Xyko: [2,1], Teu: [3,1], Soninha: [3,2], Dani: [2,0], Rafa: [3,1]}
   },
   {
     dia: "Domingo, 5 de julho", hora: "21h00", grupo: "R16",
     casa: "🇲🇽 México", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     abbrCasa: "MEX", abbrFora: "ENG",
     local: "📍 Cidade do México",
-    palpites: {}
+    palpites: {Xyko: [1,3], Teu: [1,0], Soninha: [2,2], Dani: [1,1], Rafa: [2,1]}
   },
   {
     dia: "Segunda-feira, 6 de julho", hora: "16h00", grupo: "R16",
