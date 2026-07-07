@@ -775,6 +775,27 @@ const JOGOS = [
     abbrCasa: "SUI", abbrFora: "COL",
     local: "📍 Vancouver",
     palpites: {}
+  },
+  {
+    dia: "Quinta-feira, 9 de julho", hora: "17h00", grupo: "QF",
+    casa: "🇫🇷 França", fora: "Marrocos 🇲🇦",
+    abbrCasa: "FRA", abbrFora: "MAR",
+    local: "📍 Boston",
+    palpites: {}
+  },
+  {
+    dia: "Sexta-feira, 10 de julho", hora: "16h00", grupo: "QF",
+    casa: "🇪🇸 Espanha", fora: "Bélgica 🇧🇪",
+    abbrCasa: "ESP", abbrFora: "BEL",
+    local: "📍 Los Angeles",
+    palpites: {}
+  },
+  {
+    dia: "Sábado, 11 de julho", hora: "18h00", grupo: "QF",
+    casa: "🇳🇴 Noruega", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    abbrCasa: "NOR", abbrFora: "ENG",
+    local: "📍 Miami",
+    palpites: {}
   }
 ];
 
