@@ -767,14 +767,14 @@ const JOGOS = [
     casa: "🇦🇷 Argentina", fora: "Egito 🇪🇬",
     abbrCasa: "ARG", abbrFora: "EGY",
     local: "📍 Atlanta",
-    palpites: {}
+    palpites: { Rafa: [1,2], Dani: [1,0], Soninha: [3,0] }
   },
   {
     dia: "Terça-feira, 7 de julho", hora: "17h00", grupo: "R16",
     casa: "🇨🇭 Suíça", fora: "Colômbia 🇨🇴",
     abbrCasa: "SUI", abbrFora: "COL",
     local: "📍 Vancouver",
-    palpites: {}
+    palpites: { Rafa: [1,2], Dani: [2,2], Soninha: [1,3] }
   },
   {
     dia: "Quinta-feira, 9 de julho", hora: "17h00", grupo: "QF",
