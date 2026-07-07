@@ -751,6 +751,7 @@ const JOGOS = [
     casa: "🇵🇹 Portugal", fora: "Espanha 🇪🇸",
     abbrCasa: "POR", abbrFora: "ESP",
     local: "📍 Dallas",
+    manual: [0, 1],
     palpites: { Rafa: [0,3], Xyko: [1,3], Teu: [0,0], Dani: [1,0], Soninha: [1,3], Lu: [1,1] }
   },
   {
@@ -758,6 +759,7 @@ const JOGOS = [
     casa: "🇺🇸 EUA", fora: "Bélgica 🇧🇪",
     abbrCasa: "USA", abbrFora: "BEL",
     local: "📍 Seattle",
+    manual: [1, 4],
     palpites: { Rafa: [0,2], Xyko: [1,2], Teu: [1,1], Dani: [1,1], Soninha: [1,3], Lu: [0,2] }
   },
   {
