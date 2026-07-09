@@ -783,7 +783,7 @@ const JOGOS = [
     casa: "🇫🇷 França", fora: "Marrocos 🇲🇦",
     abbrCasa: "FRA", abbrFora: "MAR",
     local: "📍 Boston",
-    palpites: {}
+    palpites: { Rafa: [0,0], Xyko: [2,1], Teu: [4,2], Dani: [0,1], Soninha: [2,1], Lu: [3,1] }
   },
   {
     dia: "Sexta-feira, 10 de julho", hora: "16h00", grupo: "QF",
