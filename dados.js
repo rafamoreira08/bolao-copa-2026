@@ -799,14 +799,16 @@ const JOGOS = [
     casa: "🇳🇴 Noruega", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     abbrCasa: "NOR", abbrFora: "ENG",
     local: "📍 Miami",
-    palpites: {Rafa: [0,0], Xyko: [0,2], Teu: [2,4], Soninha: [2,3], Dani: [1,2], Lu: [1,2]}
+    manual: [1, 2],
+    palpites: { Rafa: [0,0], Xyko: [0,2], Teu: [2,4], Dani: [1,2], Soninha: [2,3], Lu: [1,2] }
   },
   {
     dia: "Sábado, 11 de julho", hora: "22h00", grupo: "QF",
     casa: "🇦🇷 Argentina", fora: "Suíça 🇨🇭",
     abbrCasa: "ARG", abbrFora: "SUI",
     local: "📍 Kansas City",
-    palpites: {Rafa: [0,0], Xyko: [2,0], Teu: [3,0], Soninha: [3,1], Dani: [1,0], Lu: [3,1]}
+    manual: [3, 1],
+    palpites: { Rafa: [0,0], Xyko: [2,0], Teu: [3,0], Dani: [1,0], Soninha: [3,1], Lu: [3,1] }
   }
 ];
 
