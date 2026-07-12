@@ -809,6 +809,20 @@ const JOGOS = [
     local: "📍 Kansas City",
     manual: [3, 1],
     palpites: { Rafa: [0,0], Xyko: [2,0], Teu: [3,0], Dani: [1,0], Soninha: [3,1], Lu: [3,1] }
+  },
+  {
+    dia: "Terça-feira, 14 de julho", hora: "16h00", grupo: "SF",
+    casa: "🇫🇷 França", fora: "Espanha 🇪🇸",
+    abbrCasa: "FRA", abbrFora: "ESP",
+    local: "📍 Dallas",
+    palpites: {}
+  },
+  {
+    dia: "Quarta-feira, 15 de julho", hora: "16h00", grupo: "SF",
+    casa: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra", fora: "Argentina 🇦🇷",
+    abbrCasa: "ENG", abbrFora: "ARG",
+    local: "📍 Atlanta",
+    palpites: {}
   }
 ];
 
