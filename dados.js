@@ -831,14 +831,14 @@ const JOGOS = [
     casa: "🇫🇷 França", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     abbrCasa: "FRA", abbrFora: "ENG",
     local: "📍 Miami",
-    palpites: {}
+    palpites: { Rafa: [3,3], Xyko: [3,1], Teu: [4,2], Dani: [1,2], Soninha: [3,2], Lu: [3,1] }
   },
   {
     dia: "Domingo, 19 de julho", hora: "16h00", grupo: "Final",
     casa: "🇪🇸 Espanha", fora: "Argentina 🇦🇷",
     abbrCasa: "ESP", abbrFora: "ARG",
     local: "📍 Nova York / NJ",
-    palpites: {}
+    palpites: { Rafa: [1,7], Xyko: [2,1], Teu: [1,0], Dani: [2,0], Soninha: [3,2], Lu: [2,0] }
   }
 ];
 
