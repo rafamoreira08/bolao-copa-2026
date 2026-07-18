@@ -815,6 +815,7 @@ const JOGOS = [
     casa: "🇫🇷 França", fora: "Espanha 🇪🇸",
     abbrCasa: "FRA", abbrFora: "ESP",
     local: "📍 Dallas",
+    manual: [0, 2],
     palpites: { Rafa: [0,0], Xyko: [2,1], Teu: [2,1], Dani: [1,2], Soninha: [3,2], Lu: [3,2] }
   },
   {
@@ -822,7 +823,22 @@ const JOGOS = [
     casa: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra", fora: "Argentina 🇦🇷",
     abbrCasa: "ENG", abbrFora: "ARG",
     local: "📍 Atlanta",
+    manual: [1, 2],
     palpites: { Rafa: [7,1], Xyko: [3,1], Teu: [2,1], Dani: [2,0], Soninha: [3,2], Lu: [1,3] }
+  },
+  {
+    dia: "Sábado, 18 de julho", hora: "18h00", grupo: "3º",
+    casa: "🇫🇷 França", fora: "Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    abbrCasa: "FRA", abbrFora: "ENG",
+    local: "📍 Miami",
+    palpites: {}
+  },
+  {
+    dia: "Domingo, 19 de julho", hora: "16h00", grupo: "Final",
+    casa: "🇪🇸 Espanha", fora: "Argentina 🇦🇷",
+    abbrCasa: "ESP", abbrFora: "ARG",
+    local: "📍 Nova York / NJ",
+    palpites: {}
   }
 ];
 
